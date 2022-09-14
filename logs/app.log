@@ -1,0 +1,238 @@
+[INFO ] 2022-09-14 21:18:43.536 [main] EmployeeController - 
+
+		   EMPLOYEE MANAGEMENT PORTAL
+ 
+		       TRAINER PORTAL
+
+		Enter 1 to Add     Trainer Details
+		Enter 2 to View    Trainer Details
+		Enter 3 to Delete  Trainer Details
+		Enter 4 to Update  Trainer Details
+
+		       TRAINEE PORTAL
+
+		Enter 5 to Add    Trainee Details
+		Enter 6 to View   Trainee Details
+		Enter 7 to Delete Trainee Details
+		Enter 8 to Update Trainee Details
+
+		      Enter 9 to Exit
+[INFO ] 2022-09-14 21:18:43.543 [main] EmployeeController - 
+Enter your choice
+[INFO ] 2022-09-14 21:19:02.517 [main] EmployeeController - 
+Enter Employee Name :
+[INFO ] 2022-09-14 21:19:07.030 [main] EmployeeController - 
+For Gender:
+Select the option: 
+1.Male 
+2.Female 
+3.Others 
+[INFO ] 2022-09-14 21:19:10.281 [main] EmployeeController - 
+Enter the EmailId :
+[INFO ] 2022-09-14 21:19:14.444 [main] EmployeeController - 
+Enter the Date of Birth(DD/MM/YYYY) :
+[INFO ] 2022-09-14 21:19:23.926 [main] EmployeeController - 
+Enter the Date of Joining :
+[INFO ] 2022-09-14 21:19:24.614 [main] EmployeeController - 
+Enter the Address :
+[INFO ] 2022-09-14 21:19:25.261 [main] EmployeeController - 
+Enter the Mobile Number :
+[INFO ] 2022-09-14 21:19:26.920 [main] EmployeeController - 
+Enter the Adhaar Number :
+[INFO ] 2022-09-14 21:19:28.828 [main] EmployeeController - 
+Enter the Department :
+[INFO ] 2022-09-14 21:19:29.304 [main] EmployeeController - 
+Year of Experience :
+[INFO ] 2022-09-14 21:19:30.532 [main] Version - HHH000412: Hibernate ORM core version 5.6.11.Final
+[INFO ] 2022-09-14 21:19:31.682 [main] Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[WARN ] 2022-09-14 21:19:32.015 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:32.873 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:32.902 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:32.927 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:32.953 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:33.032 [main] pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+[INFO ] 2022-09-14 21:19:33.045 [main] pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/employee]
+[INFO ] 2022-09-14 21:19:33.049 [main] pooling - HHH10001001: Connection properties: {password=****, user=root}
+[INFO ] 2022-09-14 21:19:33.053 [main] pooling - HHH10001003: Autocommit mode: false
+[INFO ] 2022-09-14 21:19:33.059 [main] DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+[INFO ] 2022-09-14 21:19:33.866 [main] Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2022-09-14 21:19:35.242 [main] access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@139089a4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+[INFO ] 2022-09-14 21:19:35.868 [main] JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[WARN ] 2022-09-14 21:19:36.090 [main] deprecation - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+[WARN ] 2022-09-14 21:19:36.193 [main] deprecation - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+[INFO ] 2022-09-14 21:19:36.313 [main] pooling - HHH10001008: Cleaning up connection pool [jdbc:mysql://localhost:3306/employee]
+[INFO ] 2022-09-14 21:19:36.323 [main] EmployeeController - 
+For Main Menu type Yes, To exit type No
+[INFO ] 2022-09-14 21:19:38.124 [main] EmployeeController - 
+
+		   EMPLOYEE MANAGEMENT PORTAL
+ 
+		       TRAINER PORTAL
+
+		Enter 1 to Add     Trainer Details
+		Enter 2 to View    Trainer Details
+		Enter 3 to Delete  Trainer Details
+		Enter 4 to Update  Trainer Details
+
+		       TRAINEE PORTAL
+
+		Enter 5 to Add    Trainee Details
+		Enter 6 to View   Trainee Details
+		Enter 7 to Delete Trainee Details
+		Enter 8 to Update Trainee Details
+
+		      Enter 9 to Exit
+[INFO ] 2022-09-14 21:19:38.127 [main] EmployeeController - 
+Enter your choice
+[WARN ] 2022-09-14 21:19:38.888 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:39.112 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:39.131 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:39.149 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:39.166 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:39.180 [main] pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+[INFO ] 2022-09-14 21:19:39.186 [main] pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/employee]
+[INFO ] 2022-09-14 21:19:39.187 [main] pooling - HHH10001001: Connection properties: {password=****, user=root}
+[INFO ] 2022-09-14 21:19:39.192 [main] pooling - HHH10001003: Autocommit mode: false
+[INFO ] 2022-09-14 21:19:39.193 [main] DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+[INFO ] 2022-09-14 21:19:39.251 [main] Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2022-09-14 21:19:39.454 [main] access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2e8986b6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+[INFO ] 2022-09-14 21:19:39.798 [main] JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[WARN ] 2022-09-14 21:19:40.027 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:40.172 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:40.186 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:40.201 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:40.214 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:40.228 [main] pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+[INFO ] 2022-09-14 21:19:40.228 [main] pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/employee]
+[INFO ] 2022-09-14 21:19:40.234 [main] pooling - HHH10001001: Connection properties: {password=****, user=root}
+[INFO ] 2022-09-14 21:19:40.237 [main] pooling - HHH10001003: Autocommit mode: false
+[INFO ] 2022-09-14 21:19:40.240 [main] DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+[INFO ] 2022-09-14 21:19:40.298 [main] Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2022-09-14 21:19:40.458 [main] access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@19213a74] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+[INFO ] 2022-09-14 21:19:40.816 [main] JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[WARN ] 2022-09-14 21:19:40.860 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:40.961 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:40.975 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:40.996 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:41.015 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:19:41.024 [main] pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+[INFO ] 2022-09-14 21:19:41.025 [main] pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/employee]
+[INFO ] 2022-09-14 21:19:41.028 [main] pooling - HHH10001001: Connection properties: {password=****, user=root}
+[INFO ] 2022-09-14 21:19:41.032 [main] pooling - HHH10001003: Autocommit mode: false
+[INFO ] 2022-09-14 21:19:41.034 [main] DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+[INFO ] 2022-09-14 21:19:41.087 [main] Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2022-09-14 21:19:41.240 [main] access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2fb70301] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+[INFO ] 2022-09-14 21:19:41.574 [main] JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[INFO ] 2022-09-14 21:19:41.631 [main] EmployeeController - 
+Details of trainers 
+
+Employee Name      :syed
+Emp Id             :1
+Gender             :male
+Qualification      :msc
+Email Id           :syed@gmail.com
+Date of Joining    :wded
+Address            :wdefd
+Phone Number       :9123456789
+Adhaar Number      :123456789012
+Department         :cse
+Trainer Experience :11
+[INFO ] 2022-09-14 21:19:41.641 [main] EmployeeController - 
+Details of trainers 
+
+Employee Name      :velu
+Emp Id             :2
+Gender             :male
+Qualification      :msc
+Email Id           :swde@gmail.com
+Date of Joining    :edef
+Address            :wdef
+Phone Number       :9123456789
+Adhaar Number      :123456789012
+Department         :swderc
+Trainer Experience :21
+[INFO ] 2022-09-14 21:19:41.651 [main] EmployeeController - 
+Details of trainers 
+
+Employee Name      :syed
+Emp Id             :4
+Gender             :male
+Qualification      :msc
+Email Id           :asd@gmail.com
+Date of Joining    :df
+Address            :df
+Phone Number       :9123456789
+Adhaar Number      :123456789012
+Department         :sd
+Trainer Experience :21
+[INFO ] 2022-09-14 21:19:41.652 [main] EmployeeController - 
+For Main Menu type Yes, To exit type No
+[INFO ] 2022-09-14 21:19:45.537 [main] EmployeeController - 
+
+		   EMPLOYEE MANAGEMENT PORTAL
+ 
+		       TRAINER PORTAL
+
+		Enter 1 to Add     Trainer Details
+		Enter 2 to View    Trainer Details
+		Enter 3 to Delete  Trainer Details
+		Enter 4 to Update  Trainer Details
+
+		       TRAINEE PORTAL
+
+		Enter 5 to Add    Trainee Details
+		Enter 6 to View   Trainee Details
+		Enter 7 to Delete Trainee Details
+		Enter 8 to Update Trainee Details
+
+		      Enter 9 to Exit
+[INFO ] 2022-09-14 21:19:45.540 [main] EmployeeController - 
+Enter your choice
+[INFO ] 2022-09-14 21:19:48.342 [main] EmployeeController - 
+Enter Employee Name :
+[INFO ] 2022-09-14 21:19:50.682 [main] EmployeeController - 
+For Gender:
+Select the option: 
+1.Male 
+2.Female 
+3.Others 
+[INFO ] 2022-09-14 21:19:51.440 [main] EmployeeController - 
+Enter your Qualification :
+[INFO ] 2022-09-14 21:19:52.258 [main] EmployeeController - 
+Enter the Email Id :
+[INFO ] 2022-09-14 21:19:55.398 [main] EmployeeController - 
+Enter the Date of Birth(DD/MM/YYYY) :
+[INFO ] 2022-09-14 21:19:57.850 [main] EmployeeController - 
+Enter the Date of Joining :
+[INFO ] 2022-09-14 21:19:58.212 [main] EmployeeController - 
+Enter the Address :
+[INFO ] 2022-09-14 21:19:58.698 [main] EmployeeController - 
+Enter the Mobile Number :
+[INFO ] 2022-09-14 21:20:01.329 [main] EmployeeController - 
+Enter the Adhaar Number :
+[INFO ] 2022-09-14 21:20:03.359 [main] EmployeeController - 
+Enter the Department :
+[INFO ] 2022-09-14 21:20:03.847 [main] EmployeeController - 
+Enter the salary :
+[INFO ] 2022-09-14 21:20:05.056 [main] EmployeeController - 
+Enter Number of Trainers to be Added
+[INFO ] 2022-09-14 21:20:05.744 [main] EmployeeController - Enter the trainer Id:
+[WARN ] 2022-09-14 21:20:09.914 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:20:10.051 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:20:10.074 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:20:10.075 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:20:10.101 [main] deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+[WARN ] 2022-09-14 21:20:10.115 [main] pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+[INFO ] 2022-09-14 21:20:10.115 [main] pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/employee]
+[INFO ] 2022-09-14 21:20:10.122 [main] pooling - HHH10001001: Connection properties: {password=****, user=root}
+[INFO ] 2022-09-14 21:20:10.124 [main] pooling - HHH10001003: Autocommit mode: false
+[INFO ] 2022-09-14 21:20:10.129 [main] DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+[INFO ] 2022-09-14 21:20:10.184 [main] Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2022-09-14 21:20:10.333 [main] access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@57617a75] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+[INFO ] 2022-09-14 21:20:10.689 [main] JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[WARN ] 2022-09-14 21:20:10.695 [main] deprecation - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+[WARN ] 2022-09-14 21:20:10.702 [main] deprecation - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+[WARN ] 2022-09-14 21:20:10.708 [main] deprecation - HHH90000022: Hibernate's legacy org.hibernate.Criteria API is deprecated; use the JPA javax.persistence.criteria.CriteriaQuery instead
+[INFO ] 2022-09-14 21:20:10.753 [main] pooling - HHH10001008: Cleaning up connection pool [jdbc:mysql://localhost:3306/employee]
+[INFO ] 2022-09-14 21:20:10.758 [main] EmployeeController - 
+For Main Menu type Yes, To exit type No

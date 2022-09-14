@@ -71,35 +71,28 @@ public class TraineeDaoImpl implements TraineeDao {
 	    if (roleResults.size() > 0) {
 	        trainee.getEmployee().setQualification(roleResults.get(0));
             } 
-            
             trainers = session.createCriteria(Trainer.class).list();
             boolean isValidTrainerId = false;
             for (int trainerId : trainee.getTrainersId()) {
                 for (Trainer trainer : trainers) {
                     if (trainer.getEmployee().getId() == trainerId) {
-                       trainersForTrainee.add(trainer);
-                       validTrainerId.add(trainerId);
-                       isValidTrainerId = true;
-                       break;
+                        trainersForTrainee.add(trainer);
+                        validTrainerId.add(trainerId);
+                        isValidTrainerId = true;
+                        break;
                     }
-                  }
-                  if (!isValidTrainerId) {
-                      inValidTrainerId.add(trainerId);
-                   }
                 }
-                 trainee.setTrainersId(validTrainerId);
-                 trainee.setTrainers(trainersForTrainee);
-
-                 if (inValidTrainerId.size() > 0) {
+                    if (!isValidTrainerId) {
+                        inValidTrainerId.add(trainerId);
+                    }
+            }
+            trainee.setTrainersId(validTrainerId);
+            trainee.setTrainers(trainersForTrainee);
+            if (inValidTrainerId.size() > 0) {
                 throw new EmployeeNotFound("Invalid trainer Id");
             }
-                       
-
-
-
             session.save(trainee);
             transaction.commit();   
-            
         } catch(Throwable ex) {
             ex.printStackTrace();
         } finally {
