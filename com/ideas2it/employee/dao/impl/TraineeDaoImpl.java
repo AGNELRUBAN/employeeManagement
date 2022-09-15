@@ -23,10 +23,6 @@ import java.time.LocalDate;
 import org.hibernate.Session;    
 import org.hibernate.SessionFactory;    
 import org.hibernate.Transaction;  
-import org.hibernate.boot.Metadata;  
-import org.hibernate.boot.MetadataSources;  
-import org.hibernate.boot.registry.StandardServiceRegistry;  
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder; 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.cfg.Configuration;
@@ -156,7 +152,6 @@ public class TraineeDaoImpl implements TraineeDao {
         factory = new Configuration().configure().buildSessionFactory();  
         session = factory.openSession();  
         Transaction transaction = session.beginTransaction();
-        System.out.println("Updated Succesfully");
         session.update(trainee);
         transaction.commit();
         session.close();

@@ -148,7 +148,6 @@ public class TrainerDaoImpl implements TrainerDao {
         factory = new Configuration().configure().buildSessionFactory();  
         session = factory.openSession();  
         Transaction transaction = session.beginTransaction();
-        System.out.println("Updated Succesfully");
         session.update(trainer);
         transaction.commit();
         session.close();

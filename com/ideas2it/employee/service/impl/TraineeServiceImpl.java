@@ -100,7 +100,6 @@ public class TraineeServiceImpl implements TraineeService {
                                              address, phoneNumber, adhaarNumber, department, role, qualification);
             Trainee trainee = new Trainee(employee, salary, trainersId);
             traineeDao.insertTrainee(trainee);
-            System.out.println("\nTrainee Data Added Successfully");
         } else {
             throw new BadRequest(errorFoundMessage, errorFound);
         }
@@ -155,13 +154,12 @@ public class TraineeServiceImpl implements TraineeService {
      * @param no parameters
      * @return It returns Nothing
      **/
-    public void updateEmail(Trainee trainee, String mail) {
+    public boolean updateEmail(Trainee trainee, String mail) {
         if (StringUtility.isValidMail(mail)) {
             trainee.getEmployee().setEmailId(mail);
             traineeDao.updateTrainee(trainee);
-        } else {
-            System.out.println("Invalid emailId");
-        }
+        } 
+        return (StringUtility.isValidMail(mail));
     }
 
     /** 
@@ -171,13 +169,12 @@ public class TraineeServiceImpl implements TraineeService {
      * @param no parameters
      * @return It returns Nothing
      **/
-    public void updateNumber(Trainee trainee, String number) {
+    public boolean updateNumber(Trainee trainee, String number) {
         if (StringUtility.isValidNumber(number)) {
             trainee.getEmployee().setPhoneNumber(number);
             traineeDao.updateTrainee(trainee);
-        } else {
-            System.out.println("Invalid Phone Number");
-        }
+        } 
+        return (StringUtility.isValidNumber(number));
     }
 
     /** 
@@ -191,7 +188,5 @@ public class TraineeServiceImpl implements TraineeService {
     public void updateAddress(Trainee trainee, String address) {
         trainee.getEmployee().setAddress(address);
         traineeDao.updateTrainee(trainee);
-    }
-
-    
+    }    
 }

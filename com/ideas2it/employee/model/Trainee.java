@@ -124,13 +124,13 @@ public class Trainee extends Employee {
      **/
    @Override
     public String toString() {
-	return "\n" +"Trainee Details" +"\n"+"\n"+"Employee Name   :" + employee.getEmployeeName() + "\n" +"Emp Id          :" + 
+	return "\n" +"\nTrainee Details" +"\n"+"\n"+"Employee Name   :" + employee.getEmployeeName() + "\n" +"Emp Id          :" + 
                        employee.getId() +"\n"+ "Gender          :" + employee.getGender()+"\n"+"Qualification   :"+
                       employee.getQualification() +"\n"+  "Email Id        :" + employee.getEmailId() +"\n"+
                       "Date of Joining :" + 
                       employee.getDateOfJoining()+ "\n"  + "Address         :" +employee.getAddress()+"\n" + "Phone Number    :"+ 
                       employee.getPhoneNumber()+"\n" + "Adhaar Number   :" + employee.getAdhaarNumber()+"\n" +"Department      :"+ 
-                      employee.getDepartment() + "\n" + "Salary          :" + getSalary()+"\n" + "Trainer Id  :" +getTrainersId();
+                      employee.getDepartment() + "\n" + "Salary          :" + getSalary();
 
    }
 }

@@ -95,7 +95,7 @@ public class Trainer extends Employee {
      **/ 
     @Override
     public String toString() {
-        return "\n" + "Details of trainers "+ "\n"+"\n" +"Employee Name      :" + employee.getEmployeeName()+ "\n" + "Emp Id             :" +
+        return "\n" + "\nTrainer Details"+ "\n"+"\n" +"Employee Name      :" + employee.getEmployeeName()+ "\n" + "Emp Id             :" +
                        employee.getId()+ "\n"+"Gender             :" + employee.getGender()+"\n" +"Qualification      :" + employee.getQualification()+"\n"+
                        "Email Id           :" +employee.getEmailId() +"\n" +"Date of Joining    :" + employee.getDateOfJoining() +
                        "\n"+"Address            :" +employee.getAddress()+"\n" + "Phone Number       :" + employee.getPhoneNumber()+

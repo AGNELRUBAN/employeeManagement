@@ -96,8 +96,7 @@ public class TrainerServiceImpl implements TrainerService {
                                              emailId, dateOfBirth, dateOfJoining,
                                              address, phoneNumber, adhaarNumber, department, role, qualification);
             Trainer trainer = new Trainer(employee, trainerExperience);
-            trainerDao.insertTrainer(trainer);
-            System.out.println("\nTrainer Data added Successfully");            
+            trainerDao.insertTrainer(trainer);            
         } else {
            throw new BadRequest(errorFoundMessage, errorFound);
         }
@@ -153,13 +152,12 @@ public class TrainerServiceImpl implements TrainerService {
      * @param {@link Trainer} trainer
      * @return it returns nothing
      **/
-    public void updateEmail(Trainer trainer, String mail) {
+    public boolean updateEmail(Trainer trainer, String mail) {
         if (StringUtility.isValidMail(mail)) {
             trainer.getEmployee().setEmailId(mail);
             trainerDao.updateTrainer(trainer);
-        } else {
-            System.out.println("Invalid emailId");
         }
+        return StringUtility.isValidMail(mail);
     }
 
     /**
@@ -170,13 +168,12 @@ public class TrainerServiceImpl implements TrainerService {
      * @param {@link Trainer} trainer
      * @return it returns nothing
      **/
-    public void updateNumber(Trainer trainer, String number) {
+    public boolean updateNumber(Trainer trainer, String number) {
         if (StringUtility.isValidNumber(number)) {
             trainer.getEmployee().setPhoneNumber(number);
             trainerDao.updateTrainer(trainer);
-        } else {
-            System.out.println("Invalid Phone Number");
-        }
+        } 
+        return StringUtility.isValidNumber(number);
     }
 
     /**

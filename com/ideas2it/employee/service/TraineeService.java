@@ -34,9 +34,9 @@ public interface TraineeService {
 
     public Trainee retrieveTraineeById(int empId) throws EmployeeNotFound;
 
-    public void updateEmail(Trainee trainee, String mail);
+    public boolean updateEmail(Trainee trainee, String mail);
 
-    public void updateNumber(Trainee trainee, String number);
+    public boolean updateNumber(Trainee trainee, String number);
 
     public void updateAddress(Trainee trainee, String address);
 

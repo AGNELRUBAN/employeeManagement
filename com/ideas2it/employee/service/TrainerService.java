@@ -37,9 +37,9 @@ public interface TrainerService {
   
     public Trainer retrieveTrainerById(int empId) throws EmployeeNotFound;
 
-    public void updateEmail(Trainer trainer, String mail);
+    public boolean updateEmail(Trainer trainer, String mail);
 
-    public void updateNumber(Trainer trainer, String number);
+    public boolean updateNumber(Trainer trainer, String number);
 
     public void updateAddress(Trainer trainer, String address);
 }

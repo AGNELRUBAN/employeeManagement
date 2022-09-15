@@ -20,7 +20,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -39,10 +38,9 @@ public class EmployeeController {
     private TraineeService traineeService = new TraineeServiceImpl();
     private static Logger logger = LogManager.getLogger(EmployeeController.class);
 
-    public static void main(String args[]) { 
+    public static void main(String args[]) {
         EmployeeController employeeController = new EmployeeController();
         employeeController.userMenu();
-      
     }
 
     /** 
@@ -139,10 +137,9 @@ public class EmployeeController {
              }
         } while (gender == null);
 
-        System.out.println("\n" +"Enter your Qualification :");
+        logger.info("\n" +"Enter your Qualification :");
         String qualifications = userInput.next(); 
         Qualification qualification = new Qualification(qualifications);
-
         logger.info("\n" +"Enter the EmailId :");
         String emailId = userInput.next();
         logger.info("\n" +"Enter the Date of Birth(DD/MM/YYYY) :");
@@ -181,18 +178,22 @@ public class EmployeeController {
                         logger.info("\nEnter the Valid EmailId :");
                         emailId = userInput.next();
                         break;
+
                     case 2 :
                         logger.info("\nPlease Enter the Valid DateOfBirth(DD/MM/YYYY) :");
                         dateOfBirth = userInput.next();
                         break;
+
                     case 3 :
                         logger.info("\nEnter the valid mobile Number :");
                         phoneNumber = userInput.next();
                         break;
+
                     case 4 : 
                         logger.info("\nEnter the Valid AdhaarNumber :");
                         adhaarNumber = userInput.next();
                         break;
+
                     case 5 : 
                         logger.info("\nEnter the Valid Employee Name :");
                         employeeName = userInput.next();
@@ -206,6 +207,7 @@ public class EmployeeController {
                 isValid = false;
             }
         } while (isValid);
+        logger.info("\nTrainer Data added Successfully");
     }
 
     /** 
@@ -215,7 +217,6 @@ public class EmployeeController {
      *
      **/
     private void viewTrainers() {
-     
         List<Trainer> listOfTrainers = trainerService.getTrainers();
         if (trainerService.getTrainers().size() < 1) {
             logger.warn("\nYou have not added any Record");
@@ -313,18 +314,22 @@ public class EmployeeController {
                         logger.info("\nEnter the Valid EmailId :");
                         emailId = userInput.next();
                         break;
+
                     case 2 :
                         logger.info("\nPlease enter the Valid DateOfBirth(DD/MM/YYYY) :");
                         dateOfBirth = userInput.next();
                         break;
+
                     case 3 :
                         logger.info("\nEnter the valid mobile Number :");
                         phoneNumber = userInput.next();
                         break;
+
                     case 4 : 
                         logger.info("\nEnter the Valid AdhaarNumber :");
                         adhaarNumber = userInput.next();
                         break;
+
                     case 5 : 
                         logger.info("\nEnter the Valid Employee Name :");
                         employeeName = userInput.next();
@@ -337,7 +342,8 @@ public class EmployeeController {
             } else {
                 isValid = false;
             }
-        } while (isValid);    
+        } while (isValid); 
+        logger.info("\nTrainee Data added Successfully");   
     }
 
     /** 
@@ -364,7 +370,7 @@ public class EmployeeController {
         if (trainerService.getTrainers().size() < 1) {
             logger.warn("\nYou have not added any Record");
         } else {
-            System.out.println("Enter the Employee Id");
+            logger.info("Enter the Employee Id");
             int employeeId = userInput.nextInt();
             try {
                 trainerService.deleteByTrainerId(employeeId);
@@ -401,46 +407,50 @@ public class EmployeeController {
      * </p>
      **/
     private void updateTrainer() {
-       
-         Trainer trainer = null;
-         logger.info("Enter the employee Id");
-         int empId = userInput.nextInt();
-         try {
-             trainer = trainerService.retrieveTrainerById(empId);
-             if (trainer != null ) {
-                 System.out.println(trainer);
-             } 
-         } catch (EmployeeNotFound e) {
-                System.out.println(e.getMessage());
-                userInput = new Scanner(System.in);
-         } 
-       if (trainer != null) {
-         logger.info("\nEnter 1 to update EmailId");
-         logger.info("Enter 2 to update Address");
-         logger.info("Enter 3 to update Phone Number"); 
-         String userChoice = userInput.next();
-         switch(userChoice) {
-         case "1" :
-             logger.info("Enter Email Id");
-             String mail = userInput.next();
-             trainerService.updateEmail(trainer, mail);
-             break;
-         case "2":
-             logger.info("Enter the Address to be Update");
-             String address = userInput.next();
-             trainerService.updateAddress(trainer, address);
-             break;
-         case "3":
-             logger.info("Enter the phone Number to be Update");
-             String number = userInput.next();
-             trainerService.updateNumber(trainer, number);
-             break;
-         default :
-             logger.warn("Invalid option");
-             break;
-         }
-       }
-                                  
+        Trainer trainer = null;
+        logger.info("Enter the employee Id");
+        int empId = userInput.nextInt();
+        try {
+            trainer = trainerService.retrieveTrainerById(empId);
+            if (trainer != null ) {
+                logger.info(trainer);
+            } 
+        } catch(EmployeeNotFound e) {             
+            logger.info(e.getMessage());
+            userInput = new Scanner(System.in);
+        } 
+        if (trainer != null) {
+            logger.info("Enter 1 to update EmailId");
+            logger.info("Enter 2 to update Address");
+            logger.info("Enter 3 to update Phone Number"); 
+            String userChoice = userInput.next();
+            switch(userChoice) {
+            case "1" :
+                logger.info("Enter Email Id");
+                String mail = userInput.next();
+                boolean isUpdated = trainerService.updateEmail(trainer, mail);
+                logger.info(isUpdated ? "Updated Successfully" : "Invalid Email Id");
+                break;
+
+            case "2":
+                logger.info("Enter the Address to be Update");
+                String address = userInput.next();
+                trainerService.updateAddress(trainer, address);
+                logger.info("Updated Successfully");
+                break;
+
+            case "3":
+                logger.info("Enter the phone Number to be Update");
+                String number = userInput.next();
+                isUpdated = trainerService.updateNumber(trainer, number);
+                logger.info(isUpdated ? "Updated Successfully" : "Invalid Mobile Number");
+                break;
+
+            default :
+                logger.warn("Invalid option");
+                break;
+            }
+        }
     }
 
     /**
@@ -449,45 +459,51 @@ public class EmployeeController {
      * </p>
      **/
     private void updateTrainee() {
-         Trainee trainee = null;
-         logger.info("Enter the employee Id");
-         int empId = userInput.nextInt();
-         try {
-             trainee = traineeService.retrieveTraineeById(empId);
-             if (trainee != null ) {
-                 logger.warn(trainee);
-             } 
-         } catch (EmployeeNotFound e) {
-                logger.warn(e.getMessage());
-                userInput = new Scanner(System.in);
-         } 
-         if (trainee != null) {
-         logger.info("\nEnter 1 to update EmailId");
-         logger.info("Enter 2 to update Address");
-         logger.info("Enter 3 to update Phone Number"); 
-         String userChoice = userInput.next();
-         switch(userChoice) {
-         case "1" :
-             logger.info("Enter Email Id to be Update");
-             String mail = userInput.next();
-             traineeService.updateEmail(trainee, mail);
-             break;
-         case "2":
-             logger.info("Enter the Address to be Update");
-             String address = userInput.next();
-             traineeService.updateAddress(trainee, address);
-             break;
-         case "3":
-             logger.info("Enter the phone Number to be Update");
-             String number = userInput.next();
-             traineeService.updateNumber(trainee, number);
-             break;
-          default :
-             logger.warn("Invalid option");
-             break;
-         }
-          }
-              
+        Trainee trainee = null;
+        logger.info("Enter the employee Id");
+        int empId = userInput.nextInt();
+        try {
+            trainee = traineeService.retrieveTraineeById(empId);
+            if (trainee != null ) {
+                logger.warn(trainee);
+            } 
+        } catch (EmployeeNotFound e) {
+               logger.warn(e.getMessage());
+               userInput = new Scanner(System.in);
+        } 
+        if (trainee != null) {
+            logger.info("\nEnter 1 to update EmailId");
+            logger.info("Enter 2 to update Address");
+            logger.info("Enter 3 to update Phone Number"); 
+            String userChoice = userInput.next();
+            switch(userChoice) {
+            case "1" :
+                logger.info("Enter Email Id to be Update");
+                String mail = userInput.next();
+                boolean isUpdate = traineeService.updateEmail(trainee, mail);
+                logger.info(isUpdate ? "Updated Successfully" : "Invalid Email Id");
+                break;
+
+            case "2":
+                logger.info("Enter the Address to be Update");
+                String address = userInput.next();
+                traineeService.updateAddress(trainee, address);
+                logger.info("Updated Successfully");
+                break;
+
+            case "3":
+                logger.info("Enter the phone Number to be Update");
+                String number = userInput.next();
+                traineeService.updateNumber(trainee, number);
+                isUpdate = traineeService.updateEmail(trainee, number);
+                logger.info(isUpdate ? "Updated Successfully" : "Invalid Mobile Number");
+                break;
+
+            default :
+                logger.warn("Invalid option");
+                break;
+            }
+        }
     }
 
     /**
@@ -502,16 +518,7 @@ public class EmployeeController {
             logger.info("Enter the trainer Id:");
             trainersId.add(userInput.nextInt());
         }
-    return trainersId;
+        return trainersId;
     }
 }
-	
-		
-
-
-
-
-
-		
     
-     
