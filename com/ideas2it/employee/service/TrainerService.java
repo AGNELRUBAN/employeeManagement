@@ -33,14 +33,14 @@ public interface TrainerService {
 
     List<Trainer> getTrainers();
 
-    boolean deleteByTrainerId(int empId) throws EmployeeNotFound;
+    deleteByTrainerId(int empId) throws EmployeeNotFound;
   
-    public Trainer retrieveTrainerById(int empId) throws EmployeeNotFound;
+    Trainer retrieveTrainerById(int empId) throws EmployeeNotFound;
 
-    public boolean updateEmail(Trainer trainer, String mail);
+    boolean updateEmail(Trainer trainer, String mail);
 
-    public boolean updateNumber(Trainer trainer, String number);
+    boolean updateNumber(Trainer trainer, String number);
 
-    public void updateAddress(Trainer trainer, String address);
+    void updateAddress(Trainer trainer, String address);
 }
     

@@ -15,13 +15,13 @@ import java.util.List;
  **/
 public interface TrainerDao {
 
-    public void insertTrainer(Trainer trainer);
+    void insertTrainer(Trainer trainer);
   
-    public List<Trainer> retrieveTrainer();
+    List<Trainer> retrieveTrainer();
     
-    public boolean deleteTrainerById(int empId);
+    boolean deleteTrainerById(int empId);
 
-    public Trainer retrieveTrainerById(int empId);
+    Trainer retrieveTrainerById(int empId);
 
-    public void updateTrainer(Trainer trainer);
+    void updateTrainer(Trainer trainer);
 }

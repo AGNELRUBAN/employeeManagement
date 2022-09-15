@@ -30,17 +30,14 @@ public interface TraineeService {
 
     List<Trainee> getTrainees();
 
-    boolean deleteByTraineeId(int empId) throws EmployeeNotFound;
+    deleteByTraineeId(int empId) throws EmployeeNotFound;
 
-    public Trainee retrieveTraineeById(int empId) throws EmployeeNotFound;
+    Trainee retrieveTraineeById(int empId) throws EmployeeNotFound;
 
-    public boolean updateEmail(Trainee trainee, String mail);
+    boolean updateEmail(Trainee trainee, String mail);
 
-    public boolean updateNumber(Trainee trainee, String number);
+    boolean updateNumber(Trainee trainee, String number);
 
-    public void updateAddress(Trainee trainee, String address);
-
-
-    
+    void updateAddress(Trainee trainee, String address);    
 }
     

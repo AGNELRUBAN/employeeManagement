@@ -15,14 +15,14 @@ import java.util.List;
  **/
 public interface TraineeDao {
 
-    public void insertTrainee(Trainee trainee);
+    void insertTrainee(Trainee trainee);
   
-    public List<Trainee> retrieveTrainee(); 
+    List<Trainee> retrieveTrainee(); 
 
-    public boolean deleteTraineeById(int empId);
+    boolean deleteTraineeById(int empId);
 
-    public Trainee retrieveTraineeById(int empId);
+    Trainee retrieveTraineeById(int empId);
 
-    public void updateTrainee(Trainee trainee);
+    void updateTrainee(Trainee trainee);
 
 }
