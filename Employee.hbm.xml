@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate Mapping DTD 3.0//EN" 
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+  
+    <hibernate-mapping>  
+        <class name="com.ideas2it.employee.model.Employee" table="Employee">  
+            <id name="id">  
+                <generator class="increment"></generator>  
+            </id>  
+            
+            <property name="employeeName"></property> 
+            <property name="gender"></property>
+            <property name="emailId"></property>
+            <property name="dateOfBirth"></property>
+            <property name="dateOfJoining"></property>
+            <property name="address"></property>
+            <property name="phoneNumber"></property>
+            <property name="adhaarNumber"></property>
+            <property name="department"></property>
+            <many-to-one name="role" class="com.ideas2it.employee.model.Role" column="roleId" not-null="true" cascade="save-update" fetch="join"/>
+            <many-to-one name="qualification" class="com.ideas2it.employee.model.Qualification" column="qualificationId" not-null="true" cascade="save-update" fetch="join"/>
+        </class>  
+            
+    </hibernate-mapping>  
