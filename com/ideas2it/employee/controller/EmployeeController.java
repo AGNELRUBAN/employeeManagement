@@ -46,9 +46,20 @@ public class EmployeeController extends HttpServlet {
     private TraineeService traineeService = new TraineeServiceImpl();
     private static Logger logger = LogManager.getLogger(EmployeeController.class);
 
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException { 
+        String choice = req.getParameter("action");
+        switch(choice) {
+            case "addTrainer":
+                addTrainer(req, res);
+                break;
 
-    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-       // public void addTrainer() {
+            case "deleteTrainer":
+                deleteTrainer(req, res);
+                break;
+        }
+   }
+
+    public void addTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("text/html");
         PrintWriter out = res.getWriter();
         String name = req.getParameter("name");
@@ -62,62 +73,72 @@ public class EmployeeController extends HttpServlet {
         String department = req.getParameter("department");
         String trainerExperience = req.getParameter("trainerExperience");
         String qualification = req.getParameter("qualification");
-
-	/*out.println(trainerExperience);
-        out.println(name);
-        out.println(gender);
-        out.println(emailId);
-        out.println(dateOfBirth);
-        out.println(dateOfJoining);
-        out.println(address);
-        out.println(phoneNumber);
-        out.println(adhaarNumber);
-        out.println(department);
-        out.println(qualification);*/
         try {
             trainerService.addTrainer(name, gender, emailId,
                                       dateOfBirth, dateOfJoining, address,
                                       phoneNumber, adhaarNumber, department, 
                                       trainerExperience, qualification);
-            out.println("<h6>");
-            out.println("Inserted ok");
-            out.println("<h6>");
+            out.println("<h1>");
+            out.println("Inserted Successfully");
+            out.println("<h1>");
             } catch (BadRequest e) {
                 out.println(e.getMessage());
             } finally {
                 out.close();
             }
-        //}
     }
 
-    public void viewTrainer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	List<Trainer> trainers = trainerService.getTrainers();
-	response.setContentType("text/html"); 
-	PrintWriter out = response.getWriter();
-	out.println("<h1> Trainers List </h1>");
-	if (trainers.size() < 0) {
-	    out.println("No Data Found to Display");
-	} else {
-	    out.println("<table><tr>");
-	    out.println("<th>Id</th><th>Name</th><th>Address</th><th>Date of Birth</th><th>Date of Joining</th>" 
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {   
+        String choice = req.getParameter("action");
+        switch (choice) {
+        case "viewTrainer":
+            viewTrainer(req, res);
+            break;
+	}	
+    }
+
+    public void viewTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        List<Trainer> trainers = trainerService.getTrainers();
+        res.setContentType("text/html"); 
+        PrintWriter out = res.getWriter();
+        if (trainers.size() <= 0) {
+            out.println("<h3>No Data Found to Display</h3>");
+        } else {
+            out.println("<h1> Trainers List </h1>");
+            out.println("<table border=1 ><tr>");
+	    out.println("<th>Id</th><th> Name</th><th>Gender</th><th>Address</th><th>Adhaar Number</th><th>Date of Birth</th><th>Date of Joining</th>" 
 		      + "<th>Email</th><th>Phone Number</th><th>Qualification</th><th>Department</th>"
 		      + "<th>Trainer Experience</th>");
-	    out.println("</tr>");
+            out.println("</tr>");
 	    for (Trainer trainer : trainers) {
-		out.println("<tr>");
+                out.println("<tr>");
 		out.println("<td>" + trainer.getEmployee().getId() + "</td>");
-		out.println("<td>" + trainer.getEmployee().getName() + "</td>");
+		out.println("<td>" + trainer.getEmployee().getEmployeeName() + "</td>");
+                out.println("<td>" + trainer.getEmployee().getGender() + "</td>");
 		out.println("<td>" + trainer.getEmployee().getAddress() + "</td>");
-		out.println("<td>" + trainer.getEmployee().getDateOfBirth() + "</td>");
+                out.println("<td>" + trainer.getEmployee().getDateOfBirth() + "</td>");
 		out.println("<td>" + trainer.getEmployee().getDateOfJoining() + "</td>");
-		out.println("<td>" + trainer.getEmployee().getEmail() + "</td>");
+		out.println("<td>" + trainer.getEmployee().getEmailId() + "</td>");
 		out.println("<td>" + trainer.getEmployee().getPhoneNumber() + "</td>");
+                out.println("<td>" + trainer.getEmployee().getAdhaarNumber() + "</td>");
 		out.println("<td>" + trainer.getEmployee().getQualification().getDescription() + "</td>");
 		out.println("<td>" + trainer.getEmployee().getDepartment() + "</td>");
-		out.println("<td>" + trainer.getTrainerExperience() + "</td>")
+		out.println("<td>" + trainer.getTrainerExperience() + "</td>");
 	    	out.println("</tr>");
 	    }
 	    out.println("</table>");
+	}
+    }
+
+    public void deleteTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
+	res.setContentType("text/html"); 
+	PrintWriter out = res.getWriter();
+	int id = Integer.parseInt(req.getParameter("id"));
+	try {
+	    trainerService.deleteByTrainerId(id);
+	    out.println("EmployeeId" +" " +id +" "+ "Deleted Successfully");
+	} catch (EmployeeNotFound e) {
+	    out.println(e.getMessage());
 	}
     }
 
