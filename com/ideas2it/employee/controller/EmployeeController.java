@@ -56,6 +56,10 @@ public class EmployeeController extends HttpServlet {
             case "deleteTrainer":
                 deleteTrainer(req, res);
                 break;
+
+            case "viewTrainer":
+                viewTrainer(req, res);
+                break;
         }
    }
 
@@ -89,15 +93,17 @@ public class EmployeeController extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {   
-        String choice = req.getParameter("action");
-        switch (choice) {
-        case "viewTrainer":
-            viewTrainer(req, res);
-            break;
-	}	
+        doPost(req, res);
     }
 
     public void viewTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        List<Trainer> trainers = trainerService.getTrainers();
+        req.setAttribute("trainers", trainers);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/viewTrainer.jsp");
+        dispatcher.forward(req, res);
+    }        
+
+    /*public void viewTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         List<Trainer> trainers = trainerService.getTrainers();
         res.setContentType("text/html"); 
         PrintWriter out = res.getWriter();
@@ -128,7 +134,7 @@ public class EmployeeController extends HttpServlet {
 	    }
 	    out.println("</table>");
 	}
-    }
+    }*/
 
     public void deleteTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
 	res.setContentType("text/html"); 
