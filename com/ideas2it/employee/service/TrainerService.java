@@ -1,3 +1,4 @@
+
 package com.ideas2it.employee.service;
 
 import com.ideas2it.employee.model.Trainer;
@@ -20,7 +21,7 @@ import java.util.List;
  **/
 public interface TrainerService {
     
-    public List<Integer> addTrainer(final String employeeName, final String gender,
+    public List<Integer> addTrainer(final Trainer trainer, final String employeeName, final String gender,
                                     final String emailId, 
                                     final String validDateOfBirth, final String dateOfJoining, 
                                     final String address, final String phoneNumber,

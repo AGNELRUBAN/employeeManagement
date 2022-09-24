@@ -3,6 +3,7 @@ package com.ideas2it.employee.service.impl;
 import com.ideas2it.employee.model.Employee;
 import com.ideas2it.employee.model.Qualification;
 import com.ideas2it.employee.model.Role;
+import com.ideas2it.employee.model.Trainer;
 import com.ideas2it.employee.dao.impl.TraineeDaoImpl;
 import com.ideas2it.employee.dao.TraineeDao;
 import com.ideas2it.employee.utility.StringUtility;
@@ -21,6 +22,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * <h1> Trainee Service </h1>
@@ -53,12 +56,12 @@ public class TraineeServiceImpl implements TraineeService {
      * @return it returns the invalid parameter list 
      * 
      **/
-    public List<Integer> addTrainee(final String employeeName, final String gender,
+    public List<Integer> addTrainee(Trainee trainee, final String employeeName, final String gender,
                                     final String emailId, 
                                     final String validDateOfBirth, final String dateOfJoining,
                                     final String address, final String phoneNumber,
                                     final String adhaarNumber, final String department,
-                                    final List<Integer> trainersId, final int salary, final Role role, final Qualification qualification) {
+                                    final List<Integer> trainersId, final int salary, final Qualification qualification) {
    
         List<Integer> errorFound = new ArrayList<Integer>();
         String errorFoundMessage = "";
@@ -71,20 +74,20 @@ public class TraineeServiceImpl implements TraineeService {
             errorFoundMessage += "\nInvalid Email Id\n";
             errorFound.add(1);
         }
-        LocalDate dateOfBirth = LocalDate.now();
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constant.DATE_FORMAT);
-            dateOfBirth = LocalDate.parse(validDateOfBirth, formatter); 
-            if (DateUtility.isFutureDate(dateOfBirth)) {
-                errorFoundMessage += "\nIt is a Future Date\n";
-                errorFound.add(2);
-            }
-        } catch (DateTimeParseException e) {
-            errorFoundMessage += "\nInvalid DateOfBirth\n";
-            errorFound.add(2);
-        }
-        Period period = Period.between(dateOfBirth, LocalDate.now());  
-        int age = period.getYears();
+       // LocalDate dateOfBirth = LocalDate.now();
+        //try {
+           // DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constant.DATE_FORMAT);
+           // dateOfBirth = LocalDate.parse(validDateOfBirth, formatter); 
+            //if (DateUtility.isFutureDate(dateOfBirth)) {
+              //  errorFoundMessage += "\nIt is a Future Date\n";
+                //errorFound.add(2);
+            //}
+        //} catch (DateTimeParseException e) {
+          //  errorFoundMessage += "\nInvalid DateOfBirth\n";
+           // errorFound.add(2);
+        //}
+        //Period period = Period.between(dateOfBirth, LocalDate.now());  
+        //int age = period.getYears();
         if (!StringUtility.isValidNumber(phoneNumber)) {
             errorFoundMessage += "\nInvalid Mobile Number\n";
             errorFound.add(3);
@@ -93,12 +96,46 @@ public class TraineeServiceImpl implements TraineeService {
             errorFoundMessage += "\nInvalid Adhaar Number\n";
             errorFound.add(4);
         } 
+    
+        List<Integer> validTrainersId = new ArrayList<>();
+        List<Trainer> trainers = trainerService.getTrainers();
+        Set<Trainer> validTrainers = new HashSet<>();
+        for (String trainerId : trainersId) {
+            for (Trainer trainer : trainers) {
+                if (Integer.valueOf(trainerId) == trainer.getEmployee().getId()) {
+		    validTrainersId.add(Integer.valueOf(trainerId));
+		    validTrainers.add(trainer);
+                }
+            }
+        }
+
+         Qualification validQualification;
+         LocalDate dateOfBirth = LocalDate.parse(validDateOfBirth);
+         Role role;
+         
         if (errorFound.size() == 0) {
-            int id =  NumberUtility.employeeId++;
+            if (trainee == null) {
+                validQualification = new Qualification(qualification);
+                role = new Role("Trainee");   
+           
             Employee employee = new Employee(employeeName, gender, 
                                              emailId, dateOfBirth, dateOfJoining,
-                                             address, phoneNumber, adhaarNumber, department, role, qualification);
-            Trainee trainee = new Trainee(employee, salary, trainersId);
+                                             address, phoneNumber, adhaarNumber, department, role, validQualification);
+            Trainee trainee = new Trainee(employee, salary, validTrainers);
+            } else {
+                 trainee.getEmployee().getQualification().setDescription(qualification);
+                 trainee.getEmployee().setEmployeeName(employeeName);
+                 trainee.getEmployee().setGender(gender);
+                 trainee.getEmployee().setEmailId(emailId);
+                 trainee.getEmployee().setDateOfBirth(dateOfBirth);
+                 trainee.getEmployee().setDateOfJoining(dateOfJoining);
+                 trainee.getEmployee().setAddress(address);
+                 trainee.getEmployee().setPhoneNumber(phoneNumber);
+                 trainee.getEmployee().setAdhaarNumber(adhaarNumber);
+                 trainee.getEmployee().setDepartment(department);
+                 trainee.setSalary(salary);
+                 trainee.setTrainersId(validTrainersId);
+             }
             traineeDao.insertTrainee(trainee);
         } else {
             throw new BadRequest(errorFoundMessage, errorFound);

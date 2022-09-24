@@ -64,19 +64,7 @@ public class TrainerDaoImpl implements TrainerDao {
             transaction.commit();
         } catch(Throwable ex) {
             ex.printStackTrace();
-        } /*finally {
-
-           if(session != null) {
-               try {
-                   //session.close();
-               } catch (Exception e) { }
-           }
-           if (factory != null) {
-               try {
-                   factory.close();
-               } catch (Exception e) { }
-            }
-        }*/
+        }
     }
 
     /**

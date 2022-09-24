@@ -51,7 +51,7 @@ public class TrainerServiceImpl implements TrainerService {
      * @param {@link byte} trainerExperience
      * @return It returns list with invalid parameters
      **/
-    public List<Integer> addTrainer(final String employeeName, final String gender,
+    public List<Integer> addTrainer(Trainer trainer, final String employeeName, final String gender,
                                     final String emailId, 
                                     final String dateOfBirth, final String dateOfJoining, 
                                     final String address, final String phoneNumber,
@@ -90,18 +90,35 @@ public class TrainerServiceImpl implements TrainerService {
             errorFoundMessage += "\nInvalid Adhaar Number";
             errorFound.add(4);
         } 
-        Qualification validQualification = new Qualification(qualification);
+        Qualification validQualification;
         byte trainerExperiences = Byte.valueOf(trainerExperience); 
         LocalDate validDateOfBirth = LocalDate.parse(dateOfBirth);
-        Role role = new Role("Trainer");
+        Role role;
 
         if (errorFound.size() == 0) {
-            int id = NumberUtility.employeeId++;
+          if (trainer == null) {
+              validQualification = new Qualification(qualification);
+              role = new Role("Trainer");
+
+            //int id = NumberUtility.employeeId++;
             Employee employee = new Employee(employeeName, gender, 
                                              emailId, validDateOfBirth, dateOfJoining,
                                              address, phoneNumber, adhaarNumber, department, role, validQualification );
-            Trainer trainer = new Trainer(employee, trainerExperiences);
+            trainer = new Trainer(employee, trainerExperiences);
+            } else {
+                trainer.getEmployee().setEmployeeName(employeeName);
 
+                trainer.getEmployee().setGender(gender);
+                trainer.getEmployee().setEmailId(emailId);
+                trainer.getEmployee().setDateOfBirth(validDateOfBirth);
+                trainer.getEmployee().setDateOfJoining(dateOfJoining);
+                trainer.getEmployee().setAddress(address);
+                trainer.getEmployee().setPhoneNumber(phoneNumber);
+                trainer.getEmployee().setAdhaarNumber(adhaarNumber);
+                trainer.getEmployee().setDepartment(department);
+                trainer.getEmployee().getQualification().setDescription(qualification);
+                trainer.setTrainerExperience(trainerExperiences);
+           }
             trainerDao.insertTrainer(trainer);            
         } else {
            throw new BadRequest(errorFoundMessage, errorFound);

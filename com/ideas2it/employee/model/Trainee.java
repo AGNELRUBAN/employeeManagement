@@ -16,7 +16,6 @@ import java.util.Set;
 public class Trainee extends Employee {
     private int salary;
     private int traineeId;
-    //private List<String> trainerNames;
     private Employee employee;
     private Set<Trainer> trainers;
     private List<Integer> trainersId;
