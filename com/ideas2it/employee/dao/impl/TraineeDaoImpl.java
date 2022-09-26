@@ -40,10 +40,10 @@ public class TraineeDaoImpl implements TraineeDao {
      * @return return nothing
      **/
     public void insertTrainee(Trainee trainee) {
-        List<Trainer> trainers = new ArrayList<>();
+       /* List<Trainer> trainers = new ArrayList<>();
         Set<Trainer> trainersForTrainee = new HashSet<>();
         List<Integer> validTrainerId = new ArrayList<>();
-        List<Integer> inValidTrainerId = new ArrayList<>();
+        List<Integer> inValidTrainerId = new ArrayList<>(); */
         try {
             factory = new Configuration().configure().buildSessionFactory(); 
             session = factory.openSession();  
@@ -60,7 +60,7 @@ public class TraineeDaoImpl implements TraineeDao {
 	    if (roleResults.size() > 0) {
 	        trainee.getEmployee().setQualification(roleResults.get(0));
             } 
-            trainers = session.createCriteria(Trainer.class).list();
+           /* trainers = session.createCriteria(Trainer.class).list();
             boolean isValidTrainerId = false;
             for (int trainerId : trainee.getTrainersId()) {
                 for (Trainer trainer : trainers) {
@@ -79,8 +79,8 @@ public class TraineeDaoImpl implements TraineeDao {
             trainee.setTrainers(trainersForTrainee);
             if (inValidTrainerId.size() > 0) {
                 throw new EmployeeNotFound("Invalid trainer Id");
-            }
-            session.save(trainee);
+            }*/
+            session.saveOrUpdate(trainee);
             transaction.commit();   
         } catch(Throwable ex) {
             ex.printStackTrace();
@@ -140,7 +140,7 @@ public class TraineeDaoImpl implements TraineeDao {
      * @param {@link Trainee} trainee
      * @return returns Nothing
      **/
-    public void updateTrainee(Trainee trainee) {
+   /* public void updateTrainee(Trainee trainee) {
         System.out.println(trainee);
         factory = new Configuration().configure().buildSessionFactory();  
         session = factory.openSession();  
@@ -148,7 +148,7 @@ public class TraineeDaoImpl implements TraineeDao {
         session.update(trainee);
         transaction.commit();
         session.close();
-    }
+    }*/
 
     /**
      * <p>

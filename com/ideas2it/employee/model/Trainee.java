@@ -23,41 +23,13 @@ public class Trainee extends Employee {
     public Trainee() {
     }
 
-    public Trainee(Employee employee, int salary, List<Integer> trainersId) {
+    public Trainee(Employee employee, int salary, Set<Trainer> trainers) {
         this.employee = employee;
-        //this.trainerNames = trainerNames;
         this.salary = salary;
-        this.trainersId = trainersId;
+        this.trainers = trainers;
     }
 
-    /**
-     * <p>
-     * This method sets the variables to current class varaibles.
-     * </p>
-     *
-     * @param {@link String} employeeName
-     * @param {@link int} id
-     * @param {@link String} gender
-     * @param {@link String} qualification
-     * @param {@link String} emailId
-     * @param {@link LocalDate} dateOfBirth
-     * @param {@link String} dateOfJoining
-     * @param {@link String} address
-     * @param {@link String} phoneNumber
-     * @param {@link String} adhaarNumber
-     * @param {@link String} department
-     * @param {@link int} salary
-     * @param {@link List<String>} trainerNames
-     * @return It return trainee object with parameters
-     **/
-   /* public Trainee (String employeeName,int id, String gender, String qualification, String emailId,
-                    LocalDate dateOfBirth, String dateOfJoining, String address,
-                    String phoneNumber, String adhaarNumber, String department, int salary, List<String> trainerNames) {
-        super (employeeName, id, gender, qualification, emailId, dateOfBirth, dateOfJoining,
-               address, phoneNumber, adhaarNumber, department);
-        this.salary = salary;
-        this.trainerNames = trainerNames;
-    }*/
+    
 
     public void setTraineeId(int traineeId) {
        this.traineeId = traineeId;

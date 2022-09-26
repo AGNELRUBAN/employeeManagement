@@ -67,19 +67,19 @@ public class EmployeeController extends HttpServlet {
                 break;
 
             case "addOrUpdateTrainee":
-                addOrUpdateTrainer(req, res);
+                addOrUpdateTrainee(req, res);
                 break;
 
             case "deleteTrainee":
-                deleteTrainer(req, res);
+                deleteTrainee(req, res);
                 break;
 
-            case "viewTrainee":
-                viewTrainer(req, res);
+             case "viewTrainee":
+                viewTrainee(req, res);
                 break;
 
             case "updateTrainee":
-                updateTrainer(req, res);
+                updateTrainee(req, res);
                 break;
         }
    }
@@ -126,11 +126,22 @@ public class EmployeeController extends HttpServlet {
     }
 
     public void viewTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+       if (trainerService.getTrainers().size() < 1) {
+            logger.warn("\nYou have not added any Record");
+        } else {
         List<Trainer> trainers = trainerService.getTrainers();
         req.setAttribute("trainers", trainers);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/viewTrainer.jsp");
         dispatcher.forward(req, res);
-    }        
+        }
+    }  
+
+   public void viewTrainee(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        List<Trainee> trainees = traineeService.getTrainees();
+        req.setAttribute("trainees", trainees);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/viewTrainee.jsp");
+        dispatcher.forward(req, res);
+    }      
 
 
     public void deleteTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
@@ -139,6 +150,18 @@ public class EmployeeController extends HttpServlet {
 	int id = Integer.parseInt(req.getParameter("id"));
 	try {
 	    trainerService.deleteByTrainerId(id);
+	    out.println("EmployeeId" +" " +id +" "+ "Deleted Successfully");
+	} catch (EmployeeNotFound e) {
+	    out.println(e.getMessage());
+	}
+    }
+
+    public void deleteTrainee(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
+	res.setContentType("text/html"); 
+	PrintWriter out = res.getWriter();
+	int id = Integer.parseInt(req.getParameter("id"));
+	try {
+	    traineeService.deleteByTraineeId(id);
 	    out.println("EmployeeId" +" " +id +" "+ "Deleted Successfully");
 	} catch (EmployeeNotFound e) {
 	    out.println(e.getMessage());
@@ -204,13 +227,46 @@ public class EmployeeController extends HttpServlet {
         }
     }
 
+   /* public void getTraineeById(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
+	res.setContentType("text/html"); 
+	PrintWriter out = res.getWriter();
+	int id = Integer.parseInt(req.getParameter("id"));
+	Trainee trainee;
+	try {
+	    trainee = traineeService.retrieveTraineeById(id);
+	    req.setAttribute("trainee", trainee);
+	    RequestDispatcher rd=req.getRequestDispatcher("/addOrUpdateTrainee.jsp");  
+            rd.forward(req, res);
+	} catch (EmployeeNotFound e) {
+	    out.println(e.getMessage());
+	    RequestDispatcher rd=req.getRequestDispatcher("/index.html");  
+            rd.include(req, res);
+	}
+    }*/
+
+    public void updateTrainee(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
+        res.setContentType("text/html");
+        PrintWriter out = res.getWriter();
+        int id = Integer.parseInt(req.getParameter("id"));
+        Trainee trainee;
+        try {
+            trainee = traineeService.retrieveTraineeById(id);
+            req.setAttribute("trainee", trainee);
+            RequestDispatcher rd = req.getRequestDispatcher("/addOrUpdateTrainee.jsp");
+            rd.forward(req, res);
+        } catch(EmployeeNotFound e) {
+            out.println(e.getMessage());
+            RequestDispatcher rd = req.getRequestDispatcher("/index.html");
+            rd.include(req, res);
+        }
+    }
 
     /** 
      * <p>
      * It show the user to select CRUD operations.
      * </p>
      **/
-    private void userMenu() {
+    /*private void userMenu() {
         String option;
         String userchoice;
         do {
@@ -267,7 +323,7 @@ public class EmployeeController extends HttpServlet {
             logger.info("\nFor Main Menu type Yes, To exit type No");
             option = userInput.next();
         } while (option.equalsIgnoreCase("yes")); 
-    }
+    }*/
 
     /** <p>
      *  It gets input from user and sends it to Service. 
@@ -378,7 +434,7 @@ public class EmployeeController extends HttpServlet {
      * </p>
      *
      **/
-    private void viewTrainers() {
+   /* private void viewTrainers() {
         List<Trainer> listOfTrainers = trainerService.getTrainers();
         if (trainerService.getTrainers().size() < 1) {
             logger.warn("\nYou have not added any Record");
@@ -387,14 +443,14 @@ public class EmployeeController extends HttpServlet {
                 logger.info(trainer);           
             }
         }
-    }
+    }*/
 
     /** 
      * <p>
      * Gets Trainee input from user and sends value to Service
      * </p>
      **/
-    private void addTrainee() {
+    /*private void addTrainee() {
         logger.info("\n" + "Enter Employee Name :");
         String employeeName = userInput.next();
         logger.info("\n" + "For Gender:\nSelect the option: \n1.Male \n2.Female \n3.Others ");
@@ -506,7 +562,7 @@ public class EmployeeController extends HttpServlet {
             }
         } while (isValid); 
         logger.info("\nTrainee Data added Successfully");   
-    }
+    }*
 
     /** 
      * <p>

@@ -60,7 +60,7 @@ public class TrainerDaoImpl implements TrainerDao {
             if (roleResults.size() > 0) {
 	        trainer.getEmployee().setQualification(roleResults.get(0));
             }
-            session.save(trainer);
+            session.saveOrUpdate(trainer);
             transaction.commit();
         } catch(Throwable ex) {
             ex.printStackTrace();
@@ -140,7 +140,7 @@ public class TrainerDaoImpl implements TrainerDao {
      * @param {@link Trainer} trainer
      * @returns It returns nothing 
      **/
-    public void updateTrainer(Trainer trainer) {
+   /* public void updateTrainer(Trainer trainer) {
         System.out.println(trainer);
         factory = new Configuration().configure().buildSessionFactory();  
         session = factory.openSession();  
@@ -148,6 +148,6 @@ public class TrainerDaoImpl implements TrainerDao {
         session.update(trainer);
         transaction.commit();
         session.close();
-    }                        
+    } */                       
 }
         

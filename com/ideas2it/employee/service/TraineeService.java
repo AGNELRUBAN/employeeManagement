@@ -19,10 +19,12 @@ import java.util.List;
  **/
 public interface TraineeService {
     
-    List<Integer> addTrainee(final String employeeName, final String gender,
-                             final String emailId, final String dateOfBirth, final String dateOfJoining, 
-                             final String address, final String phoneNumber, final String adhaarNumber,
-                             final String department, final List<Integer> trainersId, final int salary, final Role role, final Qualification qualification);
+    List<Integer> addTrainee(Trainee trainee, final String employeeName, final String gender,
+                                    final String emailId, 
+                                    final String validDateOfBirth, final String dateOfJoining,
+                                    final String address, final String phoneNumber,
+                                    final String adhaarNumber, final String department,
+                                    final String salary, final String qualification, final List<String> trainersId);
 
     List<Trainee> getTrainees();
 

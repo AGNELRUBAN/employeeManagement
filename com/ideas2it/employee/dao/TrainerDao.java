@@ -23,5 +23,5 @@ public interface TrainerDao {
 
     Trainer retrieveTrainerById(int empId);
 
-    void updateTrainer(Trainer trainer);
+    //void updateTrainer(Trainer trainer);
 }

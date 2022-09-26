@@ -1,4 +1,5 @@
-package com.ideas2it.employee.service.impl;
+
+lpackage com.ideas2it.employee.service.impl;
 
 import com.ideas2it.employee.model.Employee;
 import com.ideas2it.employee.model.Qualification;
@@ -12,6 +13,8 @@ import com.ideas2it.employee.utility.Constant;
 import com.ideas2it.employee.utility.NumberUtility;
 import com.ideas2it.employee.model.Trainee;
 import com.ideas2it.employee.service.TraineeService;
+import com.ideas2it.employee.service.impl.TrainerServiceImpl;
+import com.ideas2it.employee.service.TrainerService;
 import com.ideas2it.employee.exception.EmployeeNotFound;
 import com.ideas2it.employee.exception.BadRequest;
 
@@ -35,6 +38,7 @@ import java.util.Set;
  **/
 public class TraineeServiceImpl implements TraineeService {
     public TraineeDao traineeDao = new TraineeDaoImpl();
+    private TrainerService trainerService = new TrainerServiceImpl();
 
     /**
      * <p> 
@@ -61,7 +65,7 @@ public class TraineeServiceImpl implements TraineeService {
                                     final String validDateOfBirth, final String dateOfJoining,
                                     final String address, final String phoneNumber,
                                     final String adhaarNumber, final String department,
-                                    final List<Integer> trainersId, final int salary, final Qualification qualification) {
+                                    final String salary, final String qualification, final List<String> trainersId) {
    
         List<Integer> errorFound = new ArrayList<Integer>();
         String errorFoundMessage = "";
@@ -112,6 +116,7 @@ public class TraineeServiceImpl implements TraineeService {
          Qualification validQualification;
          LocalDate dateOfBirth = LocalDate.parse(validDateOfBirth);
          Role role;
+         int salaryy = Integer.parseInt(salary);
          
         if (errorFound.size() == 0) {
             if (trainee == null) {
@@ -121,8 +126,9 @@ public class TraineeServiceImpl implements TraineeService {
             Employee employee = new Employee(employeeName, gender, 
                                              emailId, dateOfBirth, dateOfJoining,
                                              address, phoneNumber, adhaarNumber, department, role, validQualification);
-            Trainee trainee = new Trainee(employee, salary, validTrainers);
+            trainee = new Trainee(employee, salaryy, validTrainers);
             } else {
+               
                  trainee.getEmployee().getQualification().setDescription(qualification);
                  trainee.getEmployee().setEmployeeName(employeeName);
                  trainee.getEmployee().setGender(gender);
@@ -133,7 +139,7 @@ public class TraineeServiceImpl implements TraineeService {
                  trainee.getEmployee().setPhoneNumber(phoneNumber);
                  trainee.getEmployee().setAdhaarNumber(adhaarNumber);
                  trainee.getEmployee().setDepartment(department);
-                 trainee.setSalary(salary);
+                 trainee.setSalary(salaryy);
                  trainee.setTrainersId(validTrainersId);
              }
             traineeDao.insertTrainee(trainee);

@@ -20,6 +20,6 @@ public interface TraineeDao {
 
     Trainee retrieveTraineeById(int empId);
 
-    void updateTrainee(Trainee trainee);
+   // void updateTrainee(Trainee trainee);
 
 }
