@@ -1,5 +1,4 @@
-
-lpackage com.ideas2it.employee.service.impl;
+package com.ideas2it.employee.service.impl;
 
 import com.ideas2it.employee.model.Employee;
 import com.ideas2it.employee.model.Qualification;
@@ -78,20 +77,6 @@ public class TraineeServiceImpl implements TraineeService {
             errorFoundMessage += "\nInvalid Email Id\n";
             errorFound.add(1);
         }
-       // LocalDate dateOfBirth = LocalDate.now();
-        //try {
-           // DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constant.DATE_FORMAT);
-           // dateOfBirth = LocalDate.parse(validDateOfBirth, formatter); 
-            //if (DateUtility.isFutureDate(dateOfBirth)) {
-              //  errorFoundMessage += "\nIt is a Future Date\n";
-                //errorFound.add(2);
-            //}
-        //} catch (DateTimeParseException e) {
-          //  errorFoundMessage += "\nInvalid DateOfBirth\n";
-           // errorFound.add(2);
-        //}
-        //Period period = Period.between(dateOfBirth, LocalDate.now());  
-        //int age = period.getYears();
         if (!StringUtility.isValidNumber(phoneNumber)) {
             errorFoundMessage += "\nInvalid Mobile Number\n";
             errorFound.add(3);
@@ -107,41 +92,39 @@ public class TraineeServiceImpl implements TraineeService {
         for (String trainerId : trainersId) {
             for (Trainer trainer : trainers) {
                 if (Integer.valueOf(trainerId) == trainer.getEmployee().getId()) {
-		    validTrainersId.add(Integer.valueOf(trainerId));
-		    validTrainers.add(trainer);
+                    validTrainersId.add(Integer.valueOf(trainerId));
+                    validTrainers.add(trainer);
                 }
             }
         }
-
-         Qualification validQualification;
-         LocalDate dateOfBirth = LocalDate.parse(validDateOfBirth);
-         Role role;
-         int salaryy = Integer.parseInt(salary);
+        Qualification validQualification;
+        LocalDate dateOfBirth = LocalDate.parse(validDateOfBirth);
+        Role role;
+        int salaryy = Integer.parseInt(salary);
          
         if (errorFound.size() == 0) {
             if (trainee == null) {
                 validQualification = new Qualification(qualification);
                 role = new Role("Trainee");   
-           
-            Employee employee = new Employee(employeeName, gender, 
-                                             emailId, dateOfBirth, dateOfJoining,
-                                             address, phoneNumber, adhaarNumber, department, role, validQualification);
-            trainee = new Trainee(employee, salaryy, validTrainers);
+                Employee employee = new Employee(employeeName, gender, 
+                                                 emailId, dateOfBirth, dateOfJoining,
+                                                 address, phoneNumber, adhaarNumber, department, 
+                                                 role, validQualification);
+                trainee = new Trainee(employee, salaryy, validTrainers);
             } else {
-               
-                 trainee.getEmployee().getQualification().setDescription(qualification);
-                 trainee.getEmployee().setEmployeeName(employeeName);
-                 trainee.getEmployee().setGender(gender);
-                 trainee.getEmployee().setEmailId(emailId);
-                 trainee.getEmployee().setDateOfBirth(dateOfBirth);
-                 trainee.getEmployee().setDateOfJoining(dateOfJoining);
-                 trainee.getEmployee().setAddress(address);
-                 trainee.getEmployee().setPhoneNumber(phoneNumber);
-                 trainee.getEmployee().setAdhaarNumber(adhaarNumber);
-                 trainee.getEmployee().setDepartment(department);
-                 trainee.setSalary(salaryy);
-                 trainee.setTrainersId(validTrainersId);
-             }
+                trainee.getEmployee().getQualification().setDescription(qualification);
+                trainee.getEmployee().setEmployeeName(employeeName);
+                trainee.getEmployee().setGender(gender);
+                trainee.getEmployee().setEmailId(emailId);
+                trainee.getEmployee().setDateOfBirth(dateOfBirth);
+                trainee.getEmployee().setDateOfJoining(dateOfJoining);
+                trainee.getEmployee().setAddress(address);
+                trainee.getEmployee().setPhoneNumber(phoneNumber);
+                trainee.getEmployee().setAdhaarNumber(adhaarNumber);
+                trainee.getEmployee().setDepartment(department);
+                trainee.setSalary(salaryy);
+                trainee.setTrainersId(validTrainersId);
+            }
             traineeDao.insertTrainee(trainee);
         } else {
             throw new BadRequest(errorFoundMessage, errorFound);
@@ -188,48 +171,5 @@ public class TraineeServiceImpl implements TraineeService {
             throw new EmployeeNotFound("Id not found");
         } 
         return validTrainee;
-    }
-
-    /** 
-     * <p>
-     * This method for email updation.
-     * </p>
-     * @param no parameters
-     * @return It returns Nothing
-     **/
-    public boolean updateEmail(Trainee trainee, String mail) {
-        if (StringUtility.isValidMail(mail)) {
-            trainee.getEmployee().setEmailId(mail);
-            traineeDao.updateTrainee(trainee);
-        } 
-        return (StringUtility.isValidMail(mail));
-    }
-
-    /** 
-     * <p>
-     * This method for Number updation.
-     * </p>
-     * @param no parameters
-     * @return It returns Nothing
-     **/
-    public boolean updateNumber(Trainee trainee, String number) {
-        if (StringUtility.isValidNumber(number)) {
-            trainee.getEmployee().setPhoneNumber(number);
-            traineeDao.updateTrainee(trainee);
-        } 
-        return (StringUtility.isValidNumber(number));
-    }
-
-    /** 
-     * <p>
-     * This method for Address updation.
-     * </p>
-     * @param {@link Trainee} trainee
-     * @param {@link String} address
-     * @return It returns nothing
-     **/
-    public void updateAddress(Trainee trainee, String address) {
-        trainee.getEmployee().setAddress(address);
-        traineeDao.updateTrainee(trainee);
-    }    
+    }   
 }

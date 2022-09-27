@@ -30,12 +30,6 @@ public interface TraineeService {
 
     boolean deleteByTraineeId(int empId) throws EmployeeNotFound;
 
-    Trainee retrieveTraineeById(int empId) throws EmployeeNotFound;
-
-    boolean updateEmail(Trainee trainee, String mail);
-
-    boolean updateNumber(Trainee trainee, String number);
-
-    void updateAddress(Trainee trainee, String address);    
+    Trainee retrieveTraineeById(int empId) throws EmployeeNotFound;    
 }
     

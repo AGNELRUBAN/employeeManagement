@@ -40,10 +40,6 @@ public class TraineeDaoImpl implements TraineeDao {
      * @return return nothing
      **/
     public void insertTrainee(Trainee trainee) {
-       /* List<Trainer> trainers = new ArrayList<>();
-        Set<Trainer> trainersForTrainee = new HashSet<>();
-        List<Integer> validTrainerId = new ArrayList<>();
-        List<Integer> inValidTrainerId = new ArrayList<>(); */
         try {
             factory = new Configuration().configure().buildSessionFactory(); 
             session = factory.openSession();  
@@ -60,26 +56,6 @@ public class TraineeDaoImpl implements TraineeDao {
 	    if (roleResults.size() > 0) {
 	        trainee.getEmployee().setQualification(roleResults.get(0));
             } 
-           /* trainers = session.createCriteria(Trainer.class).list();
-            boolean isValidTrainerId = false;
-            for (int trainerId : trainee.getTrainersId()) {
-                for (Trainer trainer : trainers) {
-                    if (trainer.getEmployee().getId() == trainerId) {
-                        trainersForTrainee.add(trainer);
-                        validTrainerId.add(trainerId);
-                        isValidTrainerId = true;
-                        break;
-                    }
-                }
-                    if (!isValidTrainerId) {
-                        inValidTrainerId.add(trainerId);
-                    }
-            }
-            trainee.setTrainersId(validTrainerId);
-            trainee.setTrainers(trainersForTrainee);
-            if (inValidTrainerId.size() > 0) {
-                throw new EmployeeNotFound("Invalid trainer Id");
-            }*/
             session.saveOrUpdate(trainee);
             transaction.commit();   
         } catch(Throwable ex) {
@@ -132,23 +108,6 @@ public class TraineeDaoImpl implements TraineeDao {
         session.close();
 	return isDeleted;
     }
-
-    /**
-     * <p>
-     * This method for update trainee.
-     * </p>
-     * @param {@link Trainee} trainee
-     * @return returns Nothing
-     **/
-   /* public void updateTrainee(Trainee trainee) {
-        System.out.println(trainee);
-        factory = new Configuration().configure().buildSessionFactory();  
-        session = factory.openSession();  
-        Transaction transaction = session.beginTransaction();
-        session.update(trainee);
-        transaction.commit();
-        session.close();
-    }*/
 
     /**
      * <p>

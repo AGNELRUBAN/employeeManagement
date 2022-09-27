@@ -67,20 +67,6 @@ public class TrainerServiceImpl implements TrainerService {
             errorFoundMessage += "\nInvalid Email Id";
             errorFound.add(1);
         }
-       // LocalDate dateOfBirth = LocalDate.now();
-       // try {
-          //  DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constant.DATE_FORMAT);
-           // dateOfBirth = LocalDate.parse(validDateOfBirth, formatter); 
-           // if (DateUtility.isFutureDate(dateOfBirth)) {
-                //errorFoundMessage += "\nIt is a Future Date";
-               // errorFound.add(2);
-           // }
-        //} catch (DateTimeParseException e) {
-            //errorFoundMessage += "\nInvalid date";
-           // errorFound.add(2);
-        //}
-        //Period period = Period.between(dateOfBirth, LocalDate.now());  
-        //int age = period.getYears();
         if (!StringUtility.isValidNumber(phoneNumber)) {
             errorFoundMessage += "\nInvalid Mobile Number";
             errorFound.add(3);
@@ -95,18 +81,16 @@ public class TrainerServiceImpl implements TrainerService {
         Role role;
 
         if (errorFound.size() == 0) {
-          if (trainer == null) {
-              validQualification = new Qualification(qualification);
-              role = new Role("Trainer");
-
-            //int id = NumberUtility.employeeId++;
-            Employee employee = new Employee(employeeName, gender, 
-                                             emailId, validDateOfBirth, dateOfJoining,
-                                             address, phoneNumber, adhaarNumber, department, role, validQualification );
-            trainer = new Trainer(employee, trainerExperiences);
+            if (trainer == null) {
+                validQualification = new Qualification(qualification);
+                role = new Role("Trainer");
+                Employee employee = new Employee(employeeName, gender, 
+                                                 emailId, validDateOfBirth, dateOfJoining,
+                                                 address, phoneNumber, adhaarNumber, department,
+                                                 role, validQualification );
+                trainer = new Trainer(employee, trainerExperiences);
             } else {
                 trainer.getEmployee().setEmployeeName(employeeName);
-
                 trainer.getEmployee().setGender(gender);
                 trainer.getEmployee().setEmailId(emailId);
                 trainer.getEmployee().setDateOfBirth(validDateOfBirth);
@@ -117,12 +101,12 @@ public class TrainerServiceImpl implements TrainerService {
                 trainer.getEmployee().setDepartment(department);
                 trainer.getEmployee().getQualification().setDescription(qualification);
                 trainer.setTrainerExperience(trainerExperiences);
-           }
+            }
             trainerDao.insertTrainer(trainer);            
         } else {
-           throw new BadRequest(errorFoundMessage, errorFound);
+            throw new BadRequest(errorFoundMessage, errorFound);
         }
-       return errorFound;   
+        return errorFound;   
     }
 
     /** 
@@ -164,50 +148,5 @@ public class TrainerServiceImpl implements TrainerService {
             throw new EmployeeNotFound("Id not found");
         } 
         return validTrainer;
-    }
-
-    /**
-     * <p>
-     * This method for email validation and if correct will place in trainer object and then pass to dao.
-     * </p>
-     * @param {@link String} mail
-     * @param {@link Trainer} trainer
-     * @return it returns nothing
-     **/
-    public boolean updateEmail(Trainer trainer, String mail) {
-        if (StringUtility.isValidMail(mail)) {
-            trainer.getEmployee().setEmailId(mail);
-            trainerDao.updateTrainer(trainer);
-        }
-        return StringUtility.isValidMail(mail);
-    }
-
-    /**
-     * <p>
-     * This method for Number validation and if correct will place in trainer object and then pass to dao.
-     * </p>
-     * @param {@link String} number
-     * @param {@link Trainer} trainer
-     * @return it returns nothing
-     **/
-    public boolean updateNumber(Trainer trainer, String number) {
-        if (StringUtility.isValidNumber(number)) {
-            trainer.getEmployee().setPhoneNumber(number);
-            trainerDao.updateTrainer(trainer);
-        } 
-        return StringUtility.isValidNumber(number);
-    }
-
-    /**
-     * <p>
-     * This method sets the new address to trainer object and then sends to dao.
-     * </p>
-     * @param {@link String} address
-     * @param {@link int} employeeId
-     * @return it returns nothing
-     **/
-    public void updateAddress(Trainer trainer, String address) {
-        trainer.getEmployee().setAddress(address);
-        trainerDao.updateTrainer(trainer);
-    }    
+    }  
 }

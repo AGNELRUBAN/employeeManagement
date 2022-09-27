@@ -33,11 +33,5 @@ public interface TrainerService {
     boolean deleteByTrainerId(int empId) throws EmployeeNotFound;
   
     Trainer retrieveTrainerById(int empId) throws EmployeeNotFound;
-
-    boolean updateEmail(Trainer trainer, String mail);
-
-    boolean updateNumber(Trainer trainer, String number);
-
-    void updateAddress(Trainer trainer, String address);
 }
     

@@ -131,23 +131,6 @@ public class TrainerDaoImpl implements TrainerDao {
         } 
         session.close();
         return trainer;
-    } 
-  
-    /**
-     * <p>
-     * This method for update trainer. 
-     * </p>
-     * @param {@link Trainer} trainer
-     * @returns It returns nothing 
-     **/
-   /* public void updateTrainer(Trainer trainer) {
-        System.out.println(trainer);
-        factory = new Configuration().configure().buildSessionFactory();  
-        session = factory.openSession();  
-        Transaction transaction = session.beginTransaction();
-        session.update(trainer);
-        transaction.commit();
-        session.close();
-    } */                       
+    }                      
 }
         

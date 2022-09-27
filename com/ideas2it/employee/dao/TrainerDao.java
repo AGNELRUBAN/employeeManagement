@@ -22,6 +22,4 @@ public interface TrainerDao {
     boolean deleteTrainerById(int empId);
 
     Trainer retrieveTrainerById(int empId);
-
-    //void updateTrainer(Trainer trainer);
 }
