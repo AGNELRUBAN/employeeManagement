@@ -26,6 +26,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
+import com.ideas2it.employee.exception.EmployeeNotFound;
+import com.ideas2it.employee.exception.BadRequest;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * <h1> Trainee Service </h1>
@@ -38,6 +42,7 @@ import java.util.Set;
 public class TraineeServiceImpl implements TraineeService {
     public TraineeDao traineeDao = new TraineeDaoImpl();
     private TrainerService trainerService = new TrainerServiceImpl();
+    private static Logger logger = LogManager.getLogger(TraineeServiceImpl.class);
 
     /**
      * <p> 
@@ -65,7 +70,7 @@ public class TraineeServiceImpl implements TraineeService {
                                     final String address, final String phoneNumber,
                                     final String adhaarNumber, final String department,
                                     final String salary, final String qualification, final List<String> trainersId) {
-   
+        logger.info("Add Trainee Method");
         List<Integer> errorFound = new ArrayList<Integer>();
         String errorFoundMessage = "";
         errorFound.clear();
@@ -140,6 +145,7 @@ public class TraineeServiceImpl implements TraineeService {
      * @return It returns trainee List
      **/
     public List<Trainee> getTrainees() {
+        logger.info("Retrieve Trainee Method");
         return traineeDao.retrieveTrainee();
     }
    
@@ -151,6 +157,7 @@ public class TraineeServiceImpl implements TraineeService {
      * @return returns boolean
      **/
     public boolean deleteByTraineeId(int empId) throws EmployeeNotFound {
+        logger.info("Delete Trainee Method");
         boolean isTraineeDeleted = traineeDao.deleteTraineeById(empId);
         if (!isTraineeDeleted) {
             throw new EmployeeNotFound("Id not found");
@@ -166,6 +173,7 @@ public class TraineeServiceImpl implements TraineeService {
      * @return It returns trainee Id
      **/
     public Trainee retrieveTraineeById(int empId) throws EmployeeNotFound {
+        logger.info("Retrieve Trainee By Id Method");
         Trainee validTrainee = traineeDao.retrieveTraineeById(empId);
         if (validTrainee == null) {
             throw new EmployeeNotFound("Id not found");

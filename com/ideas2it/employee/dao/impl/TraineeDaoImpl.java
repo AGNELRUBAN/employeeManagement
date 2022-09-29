@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * <h1> Trainee Dao </h1>
@@ -31,6 +33,7 @@ import java.util.Set;
 public class TraineeDaoImpl implements TraineeDao {
     private Session session;
     private SessionFactory factory;
+    private static Logger logger = LogManager.getLogger(TraineeServiceImpl.class);
     
     /**
      * <p>
@@ -40,6 +43,7 @@ public class TraineeDaoImpl implements TraineeDao {
      * @return return nothing
      **/
     public void insertTrainee(Trainee trainee) {
+        logger.info("Trainee Insert method in Dao");
         try {
             factory = new Configuration().configure().buildSessionFactory(); 
             session = factory.openSession();  
@@ -74,6 +78,7 @@ public class TraineeDaoImpl implements TraineeDao {
      * @return returns trainees from the database
      **/
     public List<Trainee> retrieveTrainee() {
+        logger.info("Retrieve Trainee method in Dao");
         List<Trainee> traineeDetails = new ArrayList<Trainee>();
         factory = new Configuration().configure().buildSessionFactory();  
         session = factory.openSession();  
@@ -93,6 +98,7 @@ public class TraineeDaoImpl implements TraineeDao {
      * @return returns boolean
      **/
     public boolean deleteTraineeById(int empId) {
+        logger.info("Delete Trainee method in Dao");
         boolean isDeleted = false;
         factory = new Configuration().configure().buildSessionFactory();
 	session = factory.openSession();
@@ -117,6 +123,7 @@ public class TraineeDaoImpl implements TraineeDao {
      * @return returns trainee object
      **/
     public Trainee retrieveTraineeById(int empId) {
+        logger.info("Retrieve Trainee By Id method in Dao");
         Trainee trainee = null;
         List<Trainee> available = new ArrayList<Trainee>();
         factory = new Configuration().configure().buildSessionFactory();   

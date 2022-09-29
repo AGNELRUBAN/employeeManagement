@@ -20,6 +20,8 @@ import java.time.Period;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * <h1> Trainer Service </h1>
@@ -31,6 +33,7 @@ import java.time.format.DateTimeFormatter;
  **/
 public class TrainerServiceImpl implements TrainerService {
     public TrainerDao trainerDao = new TrainerDaoImpl();
+    private static Logger logger = LogManager.getLogger(TrainerServiceImpl.class);
 
     /**
      * <p> 
@@ -56,6 +59,7 @@ public class TrainerServiceImpl implements TrainerService {
                                     final String address, final String phoneNumber,
                                     final String adhaarNumber, final String department,
                                     final String trainerExperience, final String qualification) {
+        logger.info("ADD Trainer Method");
         List<Integer> errorFound = new ArrayList<Integer>();
         String errorFoundMessage = "";
         errorFound.clear();
@@ -117,6 +121,7 @@ public class TrainerServiceImpl implements TrainerService {
      * @return it returns list of trainers
      **/
     public List<Trainer> getTrainers() {
+        logger.info("Trainer Retrieve Method");
         return trainerDao.retrieveTrainer();
     }
 
@@ -128,6 +133,7 @@ public class TrainerServiceImpl implements TrainerService {
      * @return it returns nothing
      **/
     public boolean deleteByTrainerId(int empId) throws EmployeeNotFound {
+        logger.info("Delete Trainer Method");
         boolean isTrainerDeleted = trainerDao.deleteTrainerById(empId);
         if (!isTrainerDeleted) {
             throw new EmployeeNotFound("Id not found");
@@ -143,6 +149,7 @@ public class TrainerServiceImpl implements TrainerService {
      * @return it returns nothing
      **/ 
     public Trainer retrieveTrainerById(int empId) throws EmployeeNotFound {
+        logger.info("Trainer Retrieve By Id Method");
         Trainer validTrainer = trainerDao.retrieveTrainerById(empId);
         if (validTrainer == null) {
             throw new EmployeeNotFound("Id not found");

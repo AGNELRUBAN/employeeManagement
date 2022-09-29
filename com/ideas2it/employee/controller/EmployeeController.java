@@ -28,6 +28,9 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;  
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 /**
  * <p> 
@@ -41,6 +44,7 @@ import java.io.PrintWriter;
 public class EmployeeController extends HttpServlet {
     private TrainerService trainerService = new TrainerServiceImpl();
     private TraineeService traineeService = new TraineeServiceImpl();
+    private static Logger logger = LogManager.getLogger(EmployeeController.class);
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException { 
         String choice = req.getParameter("action");
@@ -107,6 +111,7 @@ public class EmployeeController extends HttpServlet {
             RequestDispatcher rd=req.getRequestDispatcher("/employee?action=viewTrainer");  
             rd.include(req, res);  
         } catch (BadRequest e) {
+            logger.warn(e.getMessage());
             out.println(e.getMessage());
             req.setAttribute("trainer", trainer); 
             RequestDispatcher rd=req.getRequestDispatcher("/index.html"); 
@@ -142,6 +147,7 @@ public class EmployeeController extends HttpServlet {
             trainerService.deleteByTrainerId(id);
             out.println("EmployeeId" +" " +id +" "+ "Deleted Successfully");
         } catch (EmployeeNotFound e) {
+            logger.warn(e.getMessage());
             out.println(e.getMessage());
         }
     }
@@ -154,6 +160,7 @@ public class EmployeeController extends HttpServlet {
             traineeService.deleteByTraineeId(id);
             out.println("EmployeeId" +" " +id +" "+ "Deleted Successfully");
         } catch (EmployeeNotFound e) {
+            logger.warn(e.getMessage());
             out.println(e.getMessage());
         }
     }
@@ -169,6 +176,7 @@ public class EmployeeController extends HttpServlet {
             RequestDispatcher rd = req.getRequestDispatcher("/addOrUpdateTrainer.jsp");
             rd.forward(req, res);
         } catch(EmployeeNotFound e) {
+            logger.warn(e.getMessage());
             out.println(e.getMessage());
             RequestDispatcher rd = req.getRequestDispatcher("/index.html");
             rd.include(req, res);
@@ -207,6 +215,7 @@ public class EmployeeController extends HttpServlet {
             RequestDispatcher rd=req.getRequestDispatcher("/employee?action=viewTrainee");  
             rd.include(req, res);  
         } catch (BadRequest e) {
+            logger.warn(e.getMessage());
             out.println("<h6>");
             out.println(e.getMessage());
             out.println("</h6>");
@@ -228,6 +237,7 @@ public class EmployeeController extends HttpServlet {
             RequestDispatcher rd = req.getRequestDispatcher("/addOrUpdateTrainee.jsp");
             rd.forward(req, res);
         } catch(EmployeeNotFound e) {
+            logger.warn(e.getMessage());
             out.println(e.getMessage());
             RequestDispatcher rd = req.getRequestDispatcher("/index.html");
             rd.include(req, res);

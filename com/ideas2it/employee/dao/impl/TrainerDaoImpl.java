@@ -22,6 +22,8 @@ import org.hibernate.Transaction;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.cfg.Configuration;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 /**
@@ -35,6 +37,7 @@ import org.hibernate.cfg.Configuration;
 public class TrainerDaoImpl implements TrainerDao {
     private Session session;
     private SessionFactory factory;
+    private static Logger logger = LogManager.getLogger(TrainerDaoImpl.class);
 
     /**
      * <p>
@@ -44,6 +47,7 @@ public class TrainerDaoImpl implements TrainerDao {
      * @return return nothing
      **/
     public void insertTrainer(Trainer trainer) {
+        logger.info("Trainer Insert to DB Method in Dao");
         try {
             factory = new Configuration().configure().buildSessionFactory();  
             session = factory.openSession();  
@@ -75,6 +79,7 @@ public class TrainerDaoImpl implements TrainerDao {
      * @return returns trainers from database.
      **/
     public List<Trainer> retrieveTrainer() {
+        logger.info("Trainer List Method in Dao");
         List<Trainer> trainerDetails = new ArrayList<Trainer>();
         factory = new Configuration().configure().buildSessionFactory();   
         session = factory.openSession();  
@@ -94,6 +99,7 @@ public class TrainerDaoImpl implements TrainerDao {
      * @return returns boolean
      **/
     public boolean deleteTrainerById(int empId) {
+        logger.info("Delete Trainer Method in Dao");
         boolean isDeleted = false;
         factory = new Configuration().configure().buildSessionFactory();
         session = factory.openSession();
@@ -118,6 +124,7 @@ public class TrainerDaoImpl implements TrainerDao {
      * @return returns Trainer object
      **/
     public Trainer retrieveTrainerById(int empId) {
+        logger.info("Retrieve trainer List By Id Method in Dao");
         Trainer trainer = null;
         List<Trainer> available = new ArrayList<Trainer>();
         factory = new Configuration().configure().buildSessionFactory();   
