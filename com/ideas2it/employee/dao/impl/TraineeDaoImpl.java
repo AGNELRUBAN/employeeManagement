@@ -14,7 +14,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,17 +47,17 @@ public class TraineeDaoImpl implements TraineeDao {
             factory = new Configuration().configure().buildSessionFactory(); 
             session = factory.openSession();  
             Transaction transaction = session.beginTransaction(); 
-            Criteria criteria = session.createCriteria(Role.class);
-            criteria.add(Restrictions.eq("description", trainee.getEmployee().getRole().getDescription()));
-            List<Role> roleResult = criteria.list();
-	    if (roleResult.size() > 0) {
-	        trainee.getEmployee().setRole(roleResult.get(0));
+            Role roleResult = (Role) session.createQuery("from Role where description = :description")
+                    .setParameter("description", trainee.getEmployee().getRole().getDescription())
+                    .uniqueResult();
+            if (roleResult.size() > 0) {
+                trainee.getEmployee().setRole(roleResult);
             }
-            Criteria criteriaa = session.createCriteria(Qualification.class);
-            criteriaa.add(Restrictions.eq("description", trainee.getEmployee().getQualification().getDescription()));
-            List<Qualification> roleResults = criteriaa.list();
-	    if (roleResults.size() > 0) {
-	        trainee.getEmployee().setQualification(roleResults.get(0));
+            Qualification result = (Qualification) session.createQuery("from Qualification where description = :description")
+                                   .setParameter("description", trainee.getEmployee().getQualification().getDescription())
+                                   .uniqueResult();
+            if (result.size() > 0) {
+                trainee.getEmployee().setQualification(result);
             } 
             session.saveOrUpdate(trainee);
             transaction.commit();   
@@ -103,11 +102,10 @@ public class TraineeDaoImpl implements TraineeDao {
         factory = new Configuration().configure().buildSessionFactory();
 	session = factory.openSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Trainee.class);
-        criteria.add(Restrictions.eq("employee.id", empId));
-        List<Trainee> results = criteria.list();
-        if (results.size() > 0) {
-            session.remove(results.get(0));
+        Trainee result = (Trainee) session.createQuery("from Trainee where employee.id = :id")
+                         .setParameter("id", empId).uniqueResult();
+        if (result.size() > 0) {
+            session.remove(result);
             isDeleted = true;
         }
         transaction.commit();

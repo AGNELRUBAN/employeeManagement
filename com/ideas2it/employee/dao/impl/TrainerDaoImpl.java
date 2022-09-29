@@ -51,18 +51,18 @@ public class TrainerDaoImpl implements TrainerDao {
         try {
             factory = new Configuration().configure().buildSessionFactory();  
             session = factory.openSession();  
-            Transaction transaction = session.beginTransaction(); 
-            Criteria criteria = session.createCriteria(Role.class);
-            criteria.add(Restrictions.eq("description", trainer.getEmployee().getRole().getDescription()));
-            List<Role> roleResult = criteria.list();
+            Transaction transaction = session.beginTransaction();
+
+            Role roleResult = (Role) session.createQuery("from Role where description = :description")
+                              .setParameter("description", trainer.getEmployee().getRole().getDescription()).uniqueResult();         
             if (roleResult.size() > 0) {
-                trainer.getEmployee().setRole(roleResult.get(0));
+                trainer.getEmployee().setRole(roleResult);
             }
-            Criteria criteriaa = session.createCriteria(Qualification.class);
-            criteriaa.add(Restrictions.eq("description", trainer.getEmployee().getQualification().getDescription()));
-            List<Qualification> roleResults = criteriaa.list();
-            if (roleResults.size() > 0) {
-	        trainer.getEmployee().setQualification(roleResults.get(0));
+            Qualification qualificationResult = (Qualification) session.createQuery("from Qualification where description = :description")
+                                               .setParameter("description", trainer.getEmployee().getQualification().getDescription())
+                                               .uniqueResult();
+            if (qualificationResult.size() > 0) {
+                trainer.getEmployee().setQualification(qualificationResult);
             }
             session.saveOrUpdate(trainer);
             transaction.commit();
@@ -104,11 +104,10 @@ public class TrainerDaoImpl implements TrainerDao {
         factory = new Configuration().configure().buildSessionFactory();
         session = factory.openSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Trainer.class);
-        criteria.add(Restrictions.eq("employee.id", empId));
-        List<Trainer> results = criteria.list();
-        if (results.size() > 0) {
-            session.remove(results.get(0));
+        Trainer result = (Trainer) session.createQuery("from Trainer where employee.id = :id")
+                        .setParameter("id", empId).uniqueResult();
+        if (result.size() > 0) {
+            session.remove(result);
             isDeleted = true;
         }
         transaction.commit();
