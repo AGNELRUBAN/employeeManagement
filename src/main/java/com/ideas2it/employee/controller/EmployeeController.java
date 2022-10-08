@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,15 +52,33 @@ public class EmployeeController extends HttpServlet {
 
     @RequestMapping("/")
     public String index() {
-        logger.info("1111111111111");
         return "index";
     }
 
-    @RequestMapping("/getId")
-    public String id() {
-
-        return "getId";
+    @GetMapping("/trainerForm")
+    public ModelAndView showTrainerForm() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("trainer", new Trainer());
+        modelAndView.addObject("action", "addTrainer");
+        modelAndView.setViewName("addOrUpdateTrainer");
+        return modelAndView;
     }
+
+    @RequestMapping("/addOrUpdateTrainer")
+    public String addOrUpdateTrainer(@ModelAttribute("trainer") Trainer trainer, RedirectAttributes redirectAttributes) {
+        try {
+            trainerService.addTrainer(trainer);
+            if (trainer.getEmployee().getId() == 0) {
+                redirectAttributes.addFlashAttribute("msg", trainer.getEmployee().getEmployeeName() + " Inserted Successfully");
+            } else {
+                redirectAttributes.addFlashAttribute("msg", trainer.getEmployee().getEmployeeName() + " Updated Successfully");
+            }
+        } catch (Exception exception) {
+            redirectAttributes.addFlashAttribute("msg", exception.getMessage());
+        }
+        return "redirect:/viewTrainer";
+    }
+
  // @RequestMapping("/add")
    /* public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String choice = req.getParameter("action");
@@ -160,43 +179,38 @@ public class EmployeeController extends HttpServlet {
         doPost(req, res);
     }
 
-    public void viewTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+   /* public void viewTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         List<Trainer> trainers = trainerService.getTrainers();
         req.setAttribute("trainers", trainers);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/viewTrainer.jsp");
         dispatcher.forward(req, res);
-    }
+    }*/
 
-    public void viewTrainee(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+  /*  public void viewTrainee(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         List<Trainee> trainees = traineeService.getTrainees();
         req.setAttribute("trainees", trainees);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/viewTrainee.jsp");
         dispatcher.forward(req, res);
-    }
-/*
-    public void deleteTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
-        res.setContentType("text/html");
-        PrintWriter out = res.getWriter();
-        int id = Integer.parseInt(req.getParameter("id"));
-        try {
-            trainerService.deleteByTrainerId(id);
-            out.println("EmployeeId" +" " +id +" "+ "Deleted Successfully");
-        } catch (EmployeeNotFound e) {
-            logger.warn(e.getMessage());
-            out.println(e.getMessage());
-        }
     }*/
+
+
 
     @GetMapping("/deleteTrainer")
     public String deleteTrainer(@RequestParam int id, RedirectAttributes redirectAttributes)  {
-            trainerService.deleteByTrainerId(id);
-            redirectAttributes.addFlashAttribute("msg",id + " SuccessFully Deleted");
+        trainerService.deleteByTrainerId(id);
+        redirectAttributes.addFlashAttribute("msg",id + " SuccessFully Deleted");
         return "redirect:/viewTrainer";
     }
 
+    @GetMapping("/deleteTrainee")
+    public String deleteTrainee(@RequestParam int id, RedirectAttributes redirectAttributes)  {
+        traineeService.deleteByTraineeId(id);
+        redirectAttributes.addFlashAttribute("msg",id + " SuccessFully Deleted");
+        return "redirect:/viewTrainee";
+    }
 
 
-    public void deleteTrainee(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
+  /*  public void deleteTrainee(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
         res.setContentType("text/html");
         PrintWriter out = res.getWriter();
         int id = Integer.parseInt(req.getParameter("id"));
@@ -207,7 +221,7 @@ public class EmployeeController extends HttpServlet {
             logger.warn(e.getMessage());
             out.println(e.getMessage());
         }
-    }
+    }*/
 
     public void updateTrainer(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
         res.setContentType("text/html");

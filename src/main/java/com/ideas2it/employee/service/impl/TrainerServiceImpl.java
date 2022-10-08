@@ -48,24 +48,27 @@ public class TrainerServiceImpl implements TrainerService {
      * @param {@link byte} trainerExperience
      * @return It returns list with invalid parameters
      **/
-    public List<Integer> addTrainer(Trainer trainer, final String employeeName, final String gender,
+    public List<Integer> addTrainer(Trainer trainer) { /*final String employeeName, final String gender,
                                     final String emailId,
                                     final String dateOfBirth, final String dateOfJoining,
                                     final String address, final String phoneNumber,
                                     final String adhaarNumber, final String department,
-                                    final String trainerExperience, final String qualification) {
+                                    final String trainerExperience, final String qualification) {*/
         logger.info("ADD Trainer Method");
         List<Integer> errorFound = new ArrayList<Integer>();
         String errorFoundMessage = "";
         errorFound.clear();
+       String employeeName = trainer().getEmployee().getEmployeeName();
         if (!StringUtility.isValidName(employeeName)) {
             errorFoundMessage += "\nInvalid Name";
             errorFound.add(5);
         }
+        String emailId = trainer.getEmployee().getEmailId();
         if (!StringUtility.isValidMail(emailId)) {
             errorFoundMessage += "\nInvalid Email Id";
             errorFound.add(1);
         }
+        String phoneNumber = trainer.getEmployee().getPhoneNumber();
         if (!StringUtility.isValidNumber(phoneNumber)) {
             errorFoundMessage += "\nInvalid Mobile Number";
             errorFound.add(3);

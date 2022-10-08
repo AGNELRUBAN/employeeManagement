@@ -146,14 +146,11 @@ public class TraineeServiceImpl implements TraineeService {
      * @param empId parameters
      * @return returns boolean
      **/
-    public boolean deleteByTraineeId(int empId) throws EmployeeNotFound {
+    public boolean deleteByTraineeId(int empId) {
         logger.info("Delete Trainee Method");
-        boolean isTraineeDeleted = traineeDao.deleteTraineeById(empId);
-        if (!isTraineeDeleted) {
-            throw new EmployeeNotFound("Id not found");
-        }
-        return isTraineeDeleted;
+        return traineeDao.deleteTraineeById(empId);
     }
+
 
     /**
      * <p>

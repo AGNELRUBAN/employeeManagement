@@ -28,7 +28,7 @@ public interface TraineeService {
 
     List<Trainee> getTrainees();
 
-    boolean deleteByTraineeId(int empId) throws EmployeeNotFound;
+    boolean deleteByTraineeId(int empId);
 
     Trainee retrieveTraineeById(int empId) throws EmployeeNotFound;
 }

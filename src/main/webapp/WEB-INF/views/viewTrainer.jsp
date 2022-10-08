@@ -40,8 +40,10 @@
      <td style="color:FF4500"> <%= trainer.getTrainerExperience() %> </td>
      <td> <a href="deleteTrainer?id=<%= trainer.getEmployee().getId()%>"> <input class ="delete btn" type="button" value="Delete"></a> </td>
      </tr>
+
       <% } %>
 </table>
+ <a href="trainerForm"> <input class ="add btn" type="button" value="Add Trainer"></a>
 <a href="/" style="color:blue" > Back to Home </a>
  </body>
 </html>

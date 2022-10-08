@@ -41,6 +41,7 @@
 	<td style="color:FF4500"> <%= trainee.getEmployee().getQualification().getDescription()%> </td>
     <td style="color:FF4500"> <%= trainee.getEmployee().getDepartment()%> </td>
 	<td style="color:FF4500"> <%= trainee.getSalary()%> </td>
+
 	<%
 	    List<Integer> trainersId = new ArrayList<>();
 	    for (Trainer trainer : trainee.getTrainers()) {
@@ -48,6 +49,7 @@
 	    }
 	%>
 	<td style="color:FF4500"> <%= trainersId %> </td>
+	<td> <a href="deleteTrainee?id=<%= trainee.getEmployee().getId()%>"> <input class ="delete btn" type="button" value="Delete"></a> </td>
     </tr>
     <%
        }

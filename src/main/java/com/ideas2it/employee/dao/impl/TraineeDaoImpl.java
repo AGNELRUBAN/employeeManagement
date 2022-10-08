@@ -99,7 +99,7 @@ public class TraineeDaoImpl implements TraineeDao {
         Transaction transaction = session.beginTransaction();
         Trainee result = (Trainee) session.createQuery("from Trainee where employee.id = :id")
                 .setParameter("id", empId).uniqueResult();
-        if (result == null) {
+        if (result != null) {
             session.remove(result);
             isDeleted = true;
         }
