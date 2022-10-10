@@ -38,8 +38,11 @@
      <td style="color:FF4500"> <%= trainer.getEmployee().getQualification() %> </td>
      <td style="color:FF4500"> <%= trainer.getEmployee().getDepartment() %> </td>
      <td style="color:FF4500"> <%= trainer.getTrainerExperience() %> </td>
+
      <td> <a href="deleteTrainer?id=<%= trainer.getEmployee().getId()%>"> <input class ="delete btn" type="button" value="Delete"></a> </td>
+     <td> <a href="updateTrainer?id=<%= trainer.getEmployee().getId()%>"> <input class ="update btn" type="button" value="Update"></a> </td>
      </tr>
+
 
       <% } %>
 </table>

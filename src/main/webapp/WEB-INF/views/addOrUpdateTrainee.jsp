@@ -1,66 +1,139 @@
-<%@ page import = "com.ideas2it.employee.model.Trainer" %>
-<%@ page import = "com.ideas2it.employee.model.Trainee" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page isELIgnored="false"%>
 <html>
  <head>
-  <title> Add/Update Trainee </title>
+  <title>Trainee</title>
  </head>
-
  <body style="background-color:FFF8DC">
-  <% String choice = request.getParameter("action");
-      Trainee trainee =null;
-      String name = "";
-      String gender = "";
-      String qualification ="";
-      String emailId = "";
-      String dateOfBirth = "";
-      String dateOfJoining ="";
-      String address = "";
-      String phoneNumber = "";
-      String adhaarNumber = "";
-      String department = "";
-      String salary = "";
-      String trainersId ="";
-      String heading = "Add Trainee";
-      if(choice.equals("updateTrainee")) {
-          trainee = (Trainee)request.getAttribute("trainee");
-           name = trainee.getEmployee().getEmployeeName();
-           gender = trainee.getEmployee().getGender();
-           qualification = trainee.getEmployee().getQualification().getDescription();
-           emailId = trainee.getEmployee().getEmailId();
-           dateOfBirth = String.valueOf(trainee.getEmployee().getDateOfBirth());
-           dateOfJoining = trainee.getEmployee().getDateOfJoining();
-           address = trainee.getEmployee().getAddress();
-           phoneNumber = String.valueOf(trainee.getEmployee().getPhoneNumber());
-           adhaarNumber = trainee.getEmployee().getAdhaarNumber();
-           department = trainee.getEmployee().getDepartment();
-           salary = String.valueOf(trainee.getSalary());
-           for (Trainer trainer : trainee.getTrainers()) {
-               trainersId = String.join(",", String.valueOf(trainer.getEmployee().getId()), trainersId);
-           }
-           heading = "Update Trainee";
-      }
-      session.setAttribute("trainee", trainee);
-   %>
-    <h3 style="color:blue"> <%= heading %> </h3>
-    <form action="employee?action=addOrUpdateTrainee&choice=<%=choice%>" method="post">
-    Name : <br><input type="text" name="name" value="<%= name %>" required/></br><br>
-    Gender : <br><input type="radio" id="male" name="gender" value="male" <%=(gender.equals("male") ? "checked = checked" : "")%>>
-            <label for="male">male</label><br>
-            <input type="radio" id="female" name="gender" value="female" <%=(gender.equals("female") ? "checked = checked" : "")%>>
-            <label for="female"> female</label><br>
-            <input type="radio" id="others" name="gender" value="others" <%=(gender.equals("others") ? "checked = checked" : "")%>>
-            <label for="others"> others </label><br><br>
-    Qualification :<br> <input type="text" name="qualification" value="<%= qualification %>" required/></br></br>
-    Email :<br> <input type="emailId" name="emailId" value="<%= emailId %>" required/></br></br>
-    Date of birth :<br> <input type="date" name="dateOfBirth" value="<%= dateOfBirth %>" required/></br></br>
-    Date of Joining :<br> <input type="date" name="dateOfJoining" value="<%= dateOfJoining %>" required/></br></br>
-   Address :<br> <input type="text" name="address" value="<%= address %>" required/></br></br>
-   Phone Number : <br><input type="number" name="phoneNumber" value="<%= phoneNumber %>" required/></br></br>
-   AdhaarNumber :<br> <input type="number" name="adhaarNumber" value="<%= adhaarNumber %>" required/></br></br>
-   Department :<br> <input type="text" name="department" value="<%= department %>" required/></br></br>
-   salary :<br> <input type="number" name="salary" value="<%= salary %>" required/></br></br>
-   Trainers Id : </br> <input type="text" name="trainersId" value="<%= trainersId %>" required/> </br>
-   </br><input type="submit" value="<%= heading %>"/>
-  </form>
-  </body>
- </html>
+  <%@ page import="com.ideas2it.employee.model.Trainee"
+	   import="com.ideas2it.employee.model.Trainer"
+  %>
+  <%
+    String action = (String) request.getAttribute("action");
+	String heading = "Add Trainee";
+	if (action.equals("updateTrainee")) {
+	    heading = "Update Trainee";
+	}
+  %>
+  <h3 style="color:red"> <%= heading %> </h3>
+  <form:form modelAttribute="trainee" action="addOrUpdateTrainee?action=${action}" method="post">
+      <form:hidden path="employee.id"/>
+      <form:hidden path="traineeId" />
+       <table>
+               <tr>
+                   <td>
+                       Name:
+                   </td>
+                   <td>
+                       <form:input type="text" path="employee.employeeName" name="employeeName" required="required"/>
+                   </td>
+               </tr>
+                <tr>
+                           <td>
+                               Gender :
+                           </td>
+                           <td>
+                               <form:select path="employee.Gender">
+                                  <form:option value="Male" label="male"/>
+                                  <form:option value="Female" label="female"/>
+                                  <form:option value="Others" label="Others"/>
+                               </form:select>
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                               Qualification :
+                           </td>
+                           <td>
+                               <form:input type="text" path="employee.qualification.description" name="qualification" required="required"/>
+                           </td>
+                       </tr>
+                       <tr>
+                            <td>
+                                Email Id :
+                            </td>
+                            <td>
+                                <form:input type="email" path="employee.emailId" name="emailId" required="required" />
+                            </td>
+                        </tr>
+                        <tr>
+                           <td>
+                               Date of Birth :
+                           </td>
+                           <td>
+                               <form:input type="date" path="employee.dateOfBirth" name="dateOfBirth" required="required"/>
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                               Date of Joining :
+                           </td>
+                           <td>
+                               <form:input type="date" path="employee.dateOfJoining" name="dateOfJoining" required="required"/>
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                               Address :
+                           </td>
+                           <td>
+                               <form:input type="text" path="employee.address" name="address" required="required"/>
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                               Phone Number :
+                           </td>
+                           <td>
+                               <form:input type="number" path="employee.phoneNumber" name="phoneNumber" required="required"/>
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                               Adhaar Number :
+                           </td>
+                           <td>
+                               <form:input type="number" path="employee.adhaarNumber" name="adhaarNumber" required="required"/>
+                           </td>
+                       </tr>
+                       <tr>
+                                   <td>
+                                       Department :
+                                   </td>
+                                   <td>
+                                       <form:input type="text" path="employee.department" name="department" required="required"/>
+                                   </td>
+                               </tr>
+                      <tr>
+                        <td>
+                           Salary :
+                        </td>
+                        <td>
+                           <form:input type="number" path="salary" name="salary" required="required"/>
+                        </td>
+                      </tr>
+                       <tr>
+                          <td>
+                            Trainer Ids :
+                          </td>
+                       <td>
+                           <form:select path="trainersId">
+                            <c:forEach var="trainer" items="${trainers}" >
+                            <form:option value="${trainer.employee.id}" />
+                              </c:forEach>
+                           </form:select>
+                       </td>
+                         </tr>
+                         <tr>
+                          <td>
+                            <input class ="btn" type="submit" value="<%= heading %>"/>
+                             </td>
+                              <td>
+                           <a href="/"> <input class ="btn" type="button" value="Back"/></a>
+                                  </td>
+                              </tr>
+               </table>
+                     </form:form>
+                       </body>
+            </html>

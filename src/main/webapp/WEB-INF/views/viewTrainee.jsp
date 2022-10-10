@@ -23,6 +23,7 @@
 	<th style="font-style:italic;color:blue">Department</th>
 	<th style="font-style:italic;color:blue">Salary</th>
 	<th style="font-style:italic;color:blue">Trainers Id</th>
+
     </tr>
     <%
        List<Trainee> trainees = (List) request.getAttribute("trainees");
@@ -50,11 +51,13 @@
 	%>
 	<td style="color:FF4500"> <%= trainersId %> </td>
 	<td> <a href="deleteTrainee?id=<%= trainee.getEmployee().getId()%>"> <input class ="delete btn" type="button" value="Delete"></a> </td>
+	<td> <a href="updateTrainee?id=<%= trainee.getEmployee().getId()%>"> <input class ="update btn" type="button" value="Update"></a> </td>
     </tr>
     <%
        }
     %>
   </table>
+  <a href="\traineeForm"> <input class ="add btn" type="button" value="Add Trainee"></a>
   <a href="/" style="color:blue" > Back to Home </a>
 </body>
 </html>

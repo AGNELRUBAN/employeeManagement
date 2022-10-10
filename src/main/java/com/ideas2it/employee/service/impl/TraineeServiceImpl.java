@@ -1,26 +1,22 @@
 package com.ideas2it.employee.service.impl;
 
 import com.ideas2it.employee.exception.BadRequest;
-import com.ideas2it.employee.model.Employee;
-import com.ideas2it.employee.model.Qualification;
 import com.ideas2it.employee.model.Role;
 import com.ideas2it.employee.model.Trainer;
-import com.ideas2it.employee.dao.impl.TraineeDaoImpl;
 import com.ideas2it.employee.dao.TraineeDao;
 import com.ideas2it.employee.utility.StringUtility;
 import com.ideas2it.employee.model.Trainee;
 import com.ideas2it.employee.service.TraineeService;
 import com.ideas2it.employee.service.TrainerService;
-import com.ideas2it.employee.exception.EmployeeNotFound;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * <h1> Trainee Service </h1>
@@ -30,9 +26,13 @@ import org.apache.logging.log4j.LogManager;
  * version 1.0
  * @author ruban 11/08/22
  **/
+@Component
 public class TraineeServiceImpl implements TraineeService {
-    public TraineeDao traineeDao = new TraineeDaoImpl();
-    private final TrainerService trainerService = new TrainerServiceImpl();
+    @Autowired
+    public TraineeDao traineeDao;
+
+    @Autowired
+    public TrainerService trainerService;
     private static final Logger logger = LogManager.getLogger(TraineeServiceImpl.class);
 
     /**
@@ -55,72 +55,45 @@ public class TraineeServiceImpl implements TraineeService {
      * @return it returns the invalid parameter list
      *
      **/
-    public List<Integer> addTrainee(Trainee trainee, final String employeeName, final String gender,
-                                    final String emailId,
-                                    final String validDateOfBirth, final String dateOfJoining,
-                                    final String address, final String phoneNumber,
-                                    final String adhaarNumber, final String department,
-                                    final String salary, final String qualification, final List<String> trainersId) {
-        logger.info("Add Trainee Method");
+    @Override
+    public List<Integer> addTrainee(Trainee trainee) {
         List<Integer> errorFound = new ArrayList<Integer>();
         String errorFoundMessage = "";
         errorFound.clear();
+        String employeeName = trainee.getEmployee().getEmployeeName();
         if (!StringUtility.isValidName(employeeName)) {
             errorFoundMessage += "\nInvalid Name\n";
             errorFound.add(5);
         }
+        String emailId = trainee.getEmployee().getEmailId();
         if (!StringUtility.isValidMail(emailId)) {
             errorFoundMessage += "\nInvalid Email Id\n";
             errorFound.add(1);
         }
+        String phoneNumber = trainee.getEmployee().getPhoneNumber();
         if (!StringUtility.isValidNumber(phoneNumber)) {
             errorFoundMessage += "\nInvalid Mobile Number\n";
             errorFound.add(3);
         }
+        String adhaarNumber = trainee.getEmployee().getAdhaarNumber();
         if (!StringUtility.isNumberValid(adhaarNumber)) {
             errorFoundMessage += "\nInvalid Adhaar Number\n";
             errorFound.add(4);
         }
 
-        List<Integer> validTrainersId = new ArrayList<>();
         List<Trainer> trainers = trainerService.getTrainers();
         Set<Trainer> validTrainers = new HashSet<>();
-        for (String trainerId : trainersId) {
+        for (Integer trainerId : trainee.getTrainersId()) {
             for (Trainer trainer : trainers) {
-                if (Integer.valueOf(trainerId) == trainer.getEmployee().getId()) {
-                    validTrainersId.add(Integer.valueOf(trainerId));
+                if (trainerId == trainer.getEmployee().getId()) {
                     validTrainers.add(trainer);
                 }
             }
         }
-        Qualification validQualification;
-        LocalDate dateOfBirth = LocalDate.parse(validDateOfBirth);
-        Role role;
-        int salaryy = Integer.parseInt(salary);
-
+        trainee.setTrainers(validTrainers);
+        Role role = new Role("Trainee");
+        trainee.getEmployee().setRole(role);
         if (errorFound.size() == 0) {
-            if (trainee == null) {
-                validQualification = new Qualification(qualification);
-                role = new Role("Trainee");
-                Employee employee = new Employee(employeeName, gender,
-                        emailId, dateOfBirth, dateOfJoining,
-                        address, phoneNumber, adhaarNumber, department,
-                        role, validQualification);
-                trainee = new Trainee(employee, salaryy, validTrainers);
-            } else {
-                trainee.getEmployee().getQualification().setDescription(qualification);
-                trainee.getEmployee().setEmployeeName(employeeName);
-                trainee.getEmployee().setGender(gender);
-                trainee.getEmployee().setEmailId(emailId);
-                trainee.getEmployee().setDateOfBirth(dateOfBirth);
-                trainee.getEmployee().setDateOfJoining(dateOfJoining);
-                trainee.getEmployee().setAddress(address);
-                trainee.getEmployee().setPhoneNumber(phoneNumber);
-                trainee.getEmployee().setAdhaarNumber(adhaarNumber);
-                trainee.getEmployee().setDepartment(department);
-                trainee.setSalary(salaryy);
-                trainee.setTrainersId(validTrainersId);
-            }
             traineeDao.insertTrainee(trainee);
         } else {
             throw new BadRequest(errorFoundMessage, errorFound);
@@ -134,6 +107,7 @@ public class TraineeServiceImpl implements TraineeService {
      * </p>
      * @return It returns trainee List
      **/
+    @Override
     public List<Trainee> getTrainees() {
         logger.info("Retrieve Trainee Method");
         return traineeDao.retrieveTrainee();
@@ -146,11 +120,11 @@ public class TraineeServiceImpl implements TraineeService {
      * @param empId parameters
      * @return returns boolean
      **/
+    @Override
     public boolean deleteByTraineeId(int empId) {
         logger.info("Delete Trainee Method");
         return traineeDao.deleteTraineeById(empId);
     }
-
 
     /**
      * <p>
@@ -159,12 +133,10 @@ public class TraineeServiceImpl implements TraineeService {
      * @param empId parameters
      * @return It returns trainee Id
      **/
-    public Trainee retrieveTraineeById(int empId) throws EmployeeNotFound {
+    @Override
+    public Trainee retrieveTraineeById(int empId)  {
         logger.info("Retrieve Trainee By Id Method");
-        Trainee validTrainee = traineeDao.retrieveTraineeById(empId);
-        if (validTrainee == null) {
-            throw new EmployeeNotFound("Id not found");
-        }
-        return validTrainee;
+        return traineeDao.retrieveTraineeById(empId);
+
     }
 }

@@ -7,13 +7,13 @@ import com.ideas2it.employee.dao.TrainerDao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -24,6 +24,7 @@ import org.apache.logging.log4j.LogManager;
  * version 1.0
  * @author ruban 11/08/22
  **/
+@Component
 public class TrainerDaoImpl implements TrainerDao {
     private Session session;
     private SessionFactory factory = new Configuration().configure("hibernate/properties/hibernate.cfg.xml").buildSessionFactory();
@@ -35,21 +36,21 @@ public class TrainerDaoImpl implements TrainerDao {
      * </p>
      * @return return nothing
      **/
+    @Override
     public void insertTrainer(Trainer trainer) {
         logger.info("Trainer Insert to DB Method in Dao");
         try {
             session = factory.openSession();
             Transaction transaction = session.beginTransaction();
-
             Role roleResult = (Role) session.createQuery("from Role where description = :description")
                     .setParameter("description", trainer.getEmployee().getRole().getDescription()).uniqueResult();
-            if (roleResult == null) {
+            if (roleResult != null) {
                 trainer.getEmployee().setRole(roleResult);
             }
             Qualification qualificationResult = (Qualification) session.createQuery("from Qualification where description = :description")
-                    .setParameter("description", trainer.getEmployee().getQualification().getDescription())
-                    .uniqueResult();
-            if (qualificationResult == null) {
+                                               .setParameter("description", trainer.getEmployee().getQualification().getDescription())
+                                               .uniqueResult();
+            if (qualificationResult != null) {
                 trainer.getEmployee().setQualification(qualificationResult);
             }
             session.saveOrUpdate(trainer);
@@ -65,6 +66,7 @@ public class TrainerDaoImpl implements TrainerDao {
      * </p>
      * @return returns trainers from database.
      **/
+    @Override
     public List<Trainer> retrieveTrainer() {
         logger.info("Trainer List Method in Dao");
         List<Trainer> trainerDetails = new ArrayList<Trainer>();
@@ -84,13 +86,14 @@ public class TrainerDaoImpl implements TrainerDao {
      * @param {@link int} empId
      * @return returns boolean
      **/
+    @Override
     public boolean deleteTrainerById(int empId) {
         logger.info("Delete Trainer Method in Dao");
         boolean isDeleted = false;
         session = factory.openSession();
         Transaction transaction = session.beginTransaction();
         Trainer result = (Trainer) session.createQuery("from Trainer where employee.id = :id")
-                .setParameter("id", empId).uniqueResult();
+                         .setParameter("id", empId).uniqueResult();
         if (result != null) {
             session.remove(result);
             isDeleted = true;
@@ -107,19 +110,19 @@ public class TrainerDaoImpl implements TrainerDao {
      * @param {@link int} empId
      * @return returns Trainer object
      **/
+    @Override
     public Trainer retrieveTrainerById(int empId) {
         logger.info("Retrieve trainer List By Id Method in Dao");
         Trainer trainer = null;
-        List<Trainer> available = new ArrayList<Trainer>();
-        session = factory.openSession();
-        Transaction transaction = session.beginTransaction();
-        String query = "from Trainer where employee.id =" + empId;
-        available = session.createQuery(query).list();
-        transaction.commit();
-        if (available.size() > 0) {
-            trainer = available.get(0);
-        }
-        session.close();
+            session = factory.openSession();
+            Transaction transaction = session.beginTransaction();
+            Trainer result = (Trainer) session.createQuery("from Trainer where employee.id = :id")
+                              .setParameter("id", empId)
+                              .uniqueResult();
+            if (result != null) {
+                trainer = result;
+            }
+            transaction.commit();
         return trainer;
     }
 }

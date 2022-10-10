@@ -2,7 +2,6 @@ package com.ideas2it.employee.dao;
 
 import com.ideas2it.employee.model.Trainer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

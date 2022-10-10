@@ -1,22 +1,18 @@
 package com.ideas2it.employee.service.impl;
 
 import com.ideas2it.employee.dao.TrainerDao;
-import com.ideas2it.employee.dao.impl.TrainerDaoImpl;
 import com.ideas2it.employee.exception.BadRequest;
 import com.ideas2it.employee.utility.StringUtility;
 import com.ideas2it.employee.model.Trainer;
-import com.ideas2it.employee.model.Employee;
 import com.ideas2it.employee.model.Role;
-import com.ideas2it.employee.model.Qualification;
 import com.ideas2it.employee.service.TrainerService;
-import com.ideas2it.employee.exception.EmployeeNotFound;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * <h1> Trainer Service </h1>
@@ -26,8 +22,10 @@ import org.apache.logging.log4j.LogManager;
  * version 1.0
  * @author ruban 11/08/22
  **/
+@Component
 public class TrainerServiceImpl implements TrainerService {
-    public TrainerDao trainerDao = new TrainerDaoImpl();
+    @Autowired
+    public TrainerDao trainerDao;
     private static final Logger logger = LogManager.getLogger(TrainerServiceImpl.class);
 
     /**
@@ -48,17 +46,12 @@ public class TrainerServiceImpl implements TrainerService {
      * @param {@link byte} trainerExperience
      * @return It returns list with invalid parameters
      **/
-    public List<Integer> addTrainer(Trainer trainer) { /*final String employeeName, final String gender,
-                                    final String emailId,
-                                    final String dateOfBirth, final String dateOfJoining,
-                                    final String address, final String phoneNumber,
-                                    final String adhaarNumber, final String department,
-                                    final String trainerExperience, final String qualification) {*/
-        logger.info("ADD Trainer Method");
+    @Override
+    public List<Integer> addTrainer(Trainer trainer) {
         List<Integer> errorFound = new ArrayList<Integer>();
         String errorFoundMessage = "";
         errorFound.clear();
-       String employeeName = trainer().getEmployee().getEmployeeName();
+       String employeeName = trainer.getEmployee().getEmployeeName();
         if (!StringUtility.isValidName(employeeName)) {
             errorFoundMessage += "\nInvalid Name";
             errorFound.add(5);
@@ -73,37 +66,14 @@ public class TrainerServiceImpl implements TrainerService {
             errorFoundMessage += "\nInvalid Mobile Number";
             errorFound.add(3);
         }
+        String adhaarNumber = trainer.getEmployee().getAdhaarNumber();
         if (!StringUtility.isNumberValid(adhaarNumber)) {
             errorFoundMessage += "\nInvalid Adhaar Number";
             errorFound.add(4);
         }
-        Qualification validQualification;
-        byte trainerExperiences = Byte.valueOf(trainerExperience);
-        LocalDate validDateOfBirth = LocalDate.parse(dateOfBirth);
-        Role role;
-
+        Role role = new Role("Trainer");
+        trainer.getEmployee().setRole(role);
         if (errorFound.size() == 0) {
-            if (trainer == null) {
-                validQualification = new Qualification(qualification);
-                role = new Role("Trainer");
-                Employee employee = new Employee(employeeName, gender,
-                        emailId, validDateOfBirth, dateOfJoining,
-                        address, phoneNumber, adhaarNumber, department,
-                        role, validQualification );
-                trainer = new Trainer(employee, trainerExperiences);
-            } else {
-                trainer.getEmployee().setEmployeeName(employeeName);
-                trainer.getEmployee().setGender(gender);
-                trainer.getEmployee().setEmailId(emailId);
-                trainer.getEmployee().setDateOfBirth(validDateOfBirth);
-                trainer.getEmployee().setDateOfJoining(dateOfJoining);
-                trainer.getEmployee().setAddress(address);
-                trainer.getEmployee().setPhoneNumber(phoneNumber);
-                trainer.getEmployee().setAdhaarNumber(adhaarNumber);
-                trainer.getEmployee().setDepartment(department);
-                trainer.getEmployee().getQualification().setDescription(qualification);
-                trainer.setTrainerExperience(trainerExperiences);
-            }
             trainerDao.insertTrainer(trainer);
         } else {
             throw new BadRequest(errorFoundMessage, errorFound);
@@ -111,12 +81,15 @@ public class TrainerServiceImpl implements TrainerService {
         return errorFound;
     }
 
+
+
     /**
      * <p>
      * It Retrieve Trainer data from dao and sends it to controller.
      * </p>
      * @return it returns list of trainers
      **/
+    @Override
     public List<Trainer> getTrainers() {
         logger.info("Trainer Retrieve Method");
         return trainerDao.retrieveTrainer();
@@ -129,6 +102,7 @@ public class TrainerServiceImpl implements TrainerService {
      * @param {@link int} empId
      * @return it returns nothing
      **/
+    @Override
     public boolean deleteByTrainerId(int empId) {
         logger.info("Delete Trainer Method");
         return trainerDao.deleteTrainerById(empId);
@@ -141,12 +115,9 @@ public class TrainerServiceImpl implements TrainerService {
      * @param {@link int} empId
      * @return it returns nothing
      **/
-    public Trainer retrieveTrainerById(int empId) throws EmployeeNotFound {
+    @Override
+    public Trainer retrieveTrainerById(int empId) {
         logger.info("Trainer Retrieve By Id Method");
-        Trainer validTrainer = trainerDao.retrieveTrainerById(empId);
-        if (validTrainer == null) {
-            throw new EmployeeNotFound("Id not found");
-        }
-        return validTrainer;
+        return trainerDao.retrieveTrainerById(empId);
     }
 }

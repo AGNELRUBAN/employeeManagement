@@ -13,12 +13,10 @@ body {background-color: powderblue;}
  <h2 style="color:blue;text-align:center;">Trainer</h2>
  <div>
  <a href="viewTrainer" >View Trainer</a></br>
- <a href="getId.jsp?action=updateTrainer" >Update Trainer</a></br>
+
 
  <h2 style="color:blue;">Trainee</h2>
- <a href="addOrUpdateTrainee.jsp?action=addTrainee" >Add Trainee</a></br>
  <a href="viewTrainee" >View Trainee</a></br>
- <a href="getId.jsp?action=updateTrainee">Update Trainee</a></br>
  </div>
 
 </body>

@@ -1,12 +1,7 @@
 package com.ideas2it.employee.service;
 
 import com.ideas2it.employee.model.Trainee;
-import com.ideas2it.employee.model.Role;
-import com.ideas2it.employee.model.Qualification;
 
-import com.ideas2it.employee.exception.EmployeeNotFound;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,16 +14,11 @@ import java.util.List;
  **/
 public interface TraineeService {
 
-    List<Integer> addTrainee(Trainee trainee, final String employeeName, final String gender,
-                             final String emailId,
-                             final String validDateOfBirth, final String dateOfJoining,
-                             final String address, final String phoneNumber,
-                             final String adhaarNumber, final String department,
-                             final String salary, final String qualification, final List<String> trainersId);
+    List<Integer> addTrainee(Trainee trainee);
 
     List<Trainee> getTrainees();
 
     boolean deleteByTraineeId(int empId);
 
-    Trainee retrieveTraineeById(int empId) throws EmployeeNotFound;
+    Trainee retrieveTraineeById(int empId);
 }

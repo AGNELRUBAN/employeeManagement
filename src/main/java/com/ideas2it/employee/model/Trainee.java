@@ -95,6 +95,10 @@ public class Trainee extends Employee {
      **/
     @Override
     public String toString() {
+        trainersId = new ArrayList<>();
+        for (Trainer trainer : trainers) {
+            trainersId.add(trainer.getEmployee().getId());
+        }
         return "\n" +"\nTrainee Details" +"\n"+"\n"+"Employee Name   :" + employee.getEmployeeName() + "\n" +"Emp Id          :" +
                 employee.getId() +"\n"+ "Gender          :" + employee.getGender()+"\n"+"Qualification   :"+
                 employee.getQualification() +"\n"+  "Email Id        :" + employee.getEmailId() +"\n"+
