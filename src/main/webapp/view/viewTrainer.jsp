@@ -1,4 +1,4 @@
-<%@page import="com.ideas2it.employee.model.Trainer"%>
+<%@page import="com.ideas2it.employee.dto.TrainerDto"%>
 <%@page import="java.util.List"%>
 
 <html>
@@ -11,7 +11,7 @@
   <table border=1 cellpadding=5 cellspacing=0 style="border:5px solid blue" >
     <tr>
      <th style="font-style:italic;color:blue"> Id </th>
-     <th style="font-style:italic;color:blue"> Name </th>
+     <th style="font-style:italic;color:blue"> Names </th>
      <th style="font-style:italic;color:blue"> Gender </th>
      <th style="color:blue;font-style:italic"> Address </th>
      <th style="color:blue;font-style:italic"> Date Of Birth </th>
@@ -23,8 +23,8 @@
      <th style="color:blue;font-style:italic"> Department </th>
      <th style="color:blue;font-style:italic"> Trainer Experience </th>
     </tr> 
- <% List<Trainer> trainers = (List<Trainer>)request.getAttribute("trainers");
-    for (Trainer trainer : trainers) { %>
+ <% List<TrainerDto> trainers = (List)request.getAttribute("trainersDto");
+    for (TrainerDto trainer : trainers) { %>
      <tr> 
      <td style="color:red"> <%= trainer.getId() %> </td>
      <td style="color:FF4500"> <%= trainer.getEmployeeName() %> </td>
@@ -35,7 +35,7 @@
      <td style="color:FF4500"> <%= trainer.getEmailId() %> </td>
      <td style="color:FF4500"> <%= trainer.getPhoneNumber() %> </td>
      <td style="color:FF4500"> <%= trainer.getAdhaarNumber() %> </td>
-     <td style="color:FF4500"> <%= trainer.getQualification() %> </td>
+     <td style="color:FF4500"> <%= trainer.getQualificationDto().getDescription() %> </td>
      <td style="color:FF4500"> <%= trainer.getDepartment() %> </td>
      <td style="color:FF4500"> <%= trainer.getTrainerExperience() %> </td>
 

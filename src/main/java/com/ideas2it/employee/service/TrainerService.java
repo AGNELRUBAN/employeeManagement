@@ -1,5 +1,6 @@
 package com.ideas2it.employee.service;
 
+import com.ideas2it.employee.dto.TrainerDto;
 import com.ideas2it.employee.model.Trainer;
 
 import java.util.List;
@@ -15,11 +16,13 @@ import java.util.List;
  **/
 public interface TrainerService {
 
-    List<Integer> addTrainer(Trainer trainer);
+    List<Integer> addTrainer(TrainerDto trainerDto);
 
-    List<Trainer> getTrainers();
+    List<TrainerDto> getTrainers();
 
     boolean deleteByTrainerId(int empId);
 
-    Trainer retrieveTrainerById(int empId);
+    TrainerDto retrieveTrainerById(int empId);
+
+    TrainerDto getTrainerById(final int trainerId);
 }

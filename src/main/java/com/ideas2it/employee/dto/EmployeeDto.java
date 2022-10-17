@@ -1,8 +1,9 @@
-package com.ideas2it.employee.model;
+package com.ideas2it.employee.dto;
 
+import com.ideas2it.employee.model.Qualification;
+import com.ideas2it.employee.model.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -14,44 +15,34 @@ import java.time.LocalDate;
  * @author ruban 11/08/22
  **/
 
-@Entity
-@Table(name = "employee")
-@Inheritance(strategy=InheritanceType.JOINED)
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "emp_id")
+
+public class EmployeeDto {
     private int id;
-    @Column (name = "employee_name")
+
     private String employeeName;
 
-    @Column(name = "gender")
     private String gender;
-    @Column(name = "email_id")
     private String emailId;
-    @Column(name = "date_of_birth")
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-    @Column(name ="date_of_joining")
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String dateOfJoining;
-    @Column(name = "address")
+
     private String address;
-    @Column(name = "phone_number")
+
     private String phoneNumber;
-    @Column(name = "adhaar_number")
+
     private String adhaarNumber;
-    @Column(name = "department")
     private String department;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    private Role role;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "qualification_id", referencedColumnName = "qualification_id")
-    private Qualification qualification;
 
-    public Employee() {
+    private RoleDto roleDto;
+
+    private QualificationDto qualificationDto;
+
+    public EmployeeDto() {
     }
 
     /**
@@ -73,10 +64,10 @@ public class Employee {
      * @param {@link String} department
      * @return it returns all employee variables
      **/
-    public Employee(int id, String employeeName, String gender, String emailId,
+    public EmployeeDto(int id, String employeeName, String gender, String emailId,
                     LocalDate dateOfBirth, String dateOfJoining, String address,
                     String phoneNumber, String adhaarNumber, String department,
-                    Qualification qualification, Role role) {
+                    QualificationDto qualification, RoleDto role) {
         this.id = id;
         this.employeeName = employeeName;
         this.gender = gender;
@@ -87,8 +78,8 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.adhaarNumber = adhaarNumber;
         this.department = department;
-        this.qualification = qualification;
-        this.role = role;
+        this.qualificationDto = qualification;
+        this.roleDto = role;
     }
 
     public String getEmployeeName() {
@@ -115,12 +106,12 @@ public class Employee {
         this.gender = gender;
     }
 
-    public Qualification getQualification() {
-        return qualification;
+    public QualificationDto getQualificationDto() {
+        return qualificationDto;
     }
 
-    public void setQualification(Qualification qualification) {
-        this.qualification = qualification;
+    public void setQualificationDto(QualificationDto qualificationDto) {
+        this.qualificationDto = qualificationDto;
     }
 
     public String getEmailId() {
@@ -180,11 +171,15 @@ public class Employee {
     }
 
 
-    public Role getRole() {
-        return role;
+    public RoleDto getRoleDto() {
+        return roleDto;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleDto(RoleDto roleDto) {
+        this.roleDto = roleDto;
     }
+
+
+
+
 }

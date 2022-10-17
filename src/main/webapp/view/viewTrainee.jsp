@@ -1,7 +1,7 @@
 <%@ page import = "java.util.List"%>
 <%@ page import = "java.util.ArrayList" %>
-<%@ page import = "com.ideas2it.employee.model.Trainee"%>
-<%@ page import = "com.ideas2it.employee.model.Trainer"%>
+<%@ page import = "com.ideas2it.employee.dto.TraineeDto"%>
+<%@ page import = "com.ideas2it.employee.dto.TrainerDto"%>
 
 <html>
 <head>
@@ -22,12 +22,12 @@
 	<th style="font-style:italic;color:blue">Qualification</th>
 	<th style="font-style:italic;color:blue">Department</th>
 	<th style="font-style:italic;color:blue">Salary</th>
-	<th style="font-style:italic;color:blue">Trainers Id</th>
+    <th style="font-style:italic;color:blue">Trainer Name</th>
 
     </tr>
     <%
-       List<Trainee> trainees = (List) request.getAttribute("trainees");
-       for (Trainee trainee : trainees) {
+       List<TraineeDto> trainees = (List) request.getAttribute("traineeDto");
+       for (TraineeDto trainee : trainees) {
     %>
     <tr>
 	<td style="color:FF4500"> <%= trainee.getId()%> </td>
@@ -39,17 +39,10 @@
 	<td style="color:FF4500"> <%= trainee.getEmailId()%> </td>
 	<td style="color:FF4500"> <%= trainee.getPhoneNumber()%> </td>
     <td style="color:FF4500"> <%= trainee.getAdhaarNumber()%> </td>
-	<td style="color:FF4500"> <%= trainee.getQualification().getDescription()%> </td>
+	<td style="color:FF4500"> <%= trainee.getQualificationDto().getDescription()%> </td>
     <td style="color:FF4500"> <%= trainee.getDepartment()%> </td>
 	<td style="color:FF4500"> <%= trainee.getSalary()%> </td>
-
-	<%
-	    List<Integer> trainersId = new ArrayList<>();
-	    for (Trainer trainer : trainee.getTrainers()) {
-		trainersId.add(trainer.getId());
-	    }
-	%>
-	<td style="color:FF4500"> <%= trainersId %> </td>
+    <td style="color:FF4500" > <%= trainee.getTrainersName().toString() %></td>
 	<td> <a href="deleteTrainee?id=<%= trainee.getId()%>"> <input class ="delete btn" type="button" value="Delete"></a> </td>
 	<td> <a href="updateTrainee?id=<%= trainee.getId()%>"> <input class ="update btn" type="button" value="Update"></a> </td>
     </tr>

@@ -1,7 +1,7 @@
 package com.ideas2it.employee.controller;
 
-import com.ideas2it.employee.model.Trainee;
-import com.ideas2it.employee.model.Trainer;
+import com.ideas2it.employee.dto.TraineeDto;
+import com.ideas2it.employee.dto.TrainerDto;
 import com.ideas2it.employee.service.TraineeService;
 import com.ideas2it.employee.service.TrainerService;
 import org.apache.logging.log4j.LogManager;
@@ -27,11 +27,13 @@ import java.util.List;
  **/
 @Controller
 public class EmployeeController {
+
+    private Logger logger = LogManager.getLogger(EmployeeController.class);
     @Autowired
     private  TrainerService trainerService;
     @Autowired
     private TraineeService traineeService;
-    private static final Logger logger = LogManager.getLogger(EmployeeController.class);
+
 
     @GetMapping("/")
     public String index() {
@@ -41,7 +43,7 @@ public class EmployeeController {
     @GetMapping("/trainerForm")
     public ModelAndView showTrainerForm() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("trainer", new Trainer());
+        modelAndView.addObject("trainerDto", new TrainerDto());
         modelAndView.addObject("action", "addTrainer");
         modelAndView.setViewName("addOrUpdateTrainer");
         return modelAndView;
@@ -50,21 +52,21 @@ public class EmployeeController {
     @GetMapping("/traineeForm")
     public ModelAndView showTraineeForm() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("trainers", trainerService.getTrainers());
-        modelAndView.addObject("trainee", new Trainee());
+        modelAndView.addObject("trainersDto", trainerService.getTrainers());
+        modelAndView.addObject("traineeDto", new TraineeDto());
         modelAndView.addObject("action", "addTrainee");
         modelAndView.setViewName("addOrUpdateTrainee");
         return modelAndView;
     }
 
     @RequestMapping("/addOrUpdateTrainee")
-    public String addOrUpdateTrainee(@ModelAttribute("trainee") Trainee trainee, @RequestParam("action") String action, RedirectAttributes redirectAttributes) {
+    public String addOrUpdateTrainee(@ModelAttribute("traineeDto") TraineeDto traineeDto, @RequestParam("action") String action, RedirectAttributes redirectAttributes) {
         try {
-            traineeService.addTrainee(trainee);
+            traineeService.addTrainee(traineeDto);
             if ("addTrainee".equals(action)) {
-                redirectAttributes.addFlashAttribute("msg", trainee.getEmployeeName() + " Inserted Successfully");
+                redirectAttributes.addFlashAttribute("msg", traineeDto.getEmployeeName() + " Inserted Successfully");
             } else {
-                redirectAttributes.addFlashAttribute("msg", trainee.getEmployeeName() + " Updated Successfully");
+                redirectAttributes.addFlashAttribute("msg", traineeDto.getEmployeeName() + " Updated Successfully");
             }
         } catch (Exception exception) {
             redirectAttributes.addFlashAttribute("msg", exception.getMessage());
@@ -73,13 +75,13 @@ public class EmployeeController {
     }
 
     @RequestMapping("/addOrUpdateTrainer")
-    public String addOrUpdateTrainer(@ModelAttribute("trainer") Trainer trainer, RedirectAttributes redirectAttributes) {
+    public String addOrUpdateTrainer(@ModelAttribute TrainerDto trainerDto, @RequestParam("action") String action, RedirectAttributes redirectAttributes) {
         try {
-            trainerService.addTrainer(trainer);
+            trainerService.addTrainer(trainerDto);
             if ("addTrainer".equals("action")) {
-                redirectAttributes.addFlashAttribute("msg", trainer.getEmployeeName() + " Inserted Successfully");
+                redirectAttributes.addFlashAttribute("msg", trainerDto.getEmployeeName() + " Inserted Successfully");
             } else {
-                redirectAttributes.addFlashAttribute("msg", trainer.getEmployeeName() + " Updated Successfully");
+                redirectAttributes.addFlashAttribute("msg", trainerDto.getEmployeeName() + " Updated Successfully");
             }
         } catch (Exception exception) {
             redirectAttributes.addFlashAttribute("msg", exception.getMessage());
@@ -89,47 +91,48 @@ public class EmployeeController {
 
     @RequestMapping (value = "/viewTrainer")
     public ModelAndView viewTrainer() {
-        List<Trainer> trainers = trainerService.getTrainers();
-        ModelAndView modelAndView = new ModelAndView("viewTrainer");
-        modelAndView.addObject("trainers", trainers);
+        List<TrainerDto> trainersDto = trainerService.getTrainers();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("trainersDto", trainersDto);
         return modelAndView;
     }
 
     @RequestMapping(value ="/viewTrainee")
     public ModelAndView viewTrainee() {
-        List<Trainee> trainees = traineeService.getTrainees();
-        ModelAndView modelAndView = new ModelAndView("viewTrainee");
-        modelAndView.addObject("trainees", trainees);
+        List<TraineeDto> traineeDto = traineeService.getTrainees();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("traineeDto", traineeDto);
         return modelAndView;
     }
 
     @GetMapping("/deleteTrainer")
-    public String deleteTrainer(@RequestParam int id, RedirectAttributes redirectAttributes)  {
-        trainerService.deleteByTrainerId(id);
-        //  redirectAttributes.addFlashAttribute("msg",id + " SuccessFully Deleted");
+    public String deleteTrainer(@RequestParam("id") int trainerId, RedirectAttributes redirectAttributes)  {
+        trainerService.deleteByTrainerId(trainerId);
+         redirectAttributes.addFlashAttribute("msg",trainerId + " SuccessFully Deleted");
         return "redirect:/viewTrainer";
     }
 
     @GetMapping("/deleteTrainee")
-    public String deleteTrainee(@RequestParam int id, RedirectAttributes redirectAttributes)  {
-        traineeService.deleteByTraineeId(id);
+    public String deleteTrainee(@RequestParam("id") int traineeId, RedirectAttributes redirectAttributes)  {
+        traineeService.deleteByTraineeId(traineeId);
         // redirectAttributes.addFlashAttribute("msg",id + " SuccessFully Deleted");
         return "redirect:/viewTrainee";
     }
 
     @GetMapping("/updateTrainer")
     public String getTrainerById(@RequestParam("id") int trainerId, Model model) {
-        Trainer trainer = trainerService.retrieveTrainerById(trainerId);
-        model.addAttribute("trainer", trainer);
+        TrainerDto trainerDto = trainerService.retrieveTrainerById(trainerId);
+        model.addAttribute("trainerDto", trainerDto);
         model.addAttribute("action", "updateTrainer");
         return "addOrUpdateTrainer";
     }
 
     @GetMapping("/updateTrainee")
     public String getTraineeById(@RequestParam("id") int traineeId, Model model) {
-        Trainee trainee = traineeService.retrieveTraineeById(traineeId);
-        model.addAttribute("trainers", trainerService.getTrainers());
-        model.addAttribute("trainee", trainee);
+        TraineeDto traineeDto = traineeService.retrieveTraineeById(traineeId);
+        List<TrainerDto> trainersDto = trainerService.getTrainers();
+        model.addAttribute("trainersDto", trainersDto);
+        model.addAttribute("traineeDto", traineeDto);
         model.addAttribute("action", "updateTrainee");
         return "addOrUpdateTrainee";
     }

@@ -3,7 +3,9 @@ package com.ideas2it.employee.service.impl;
 import com.ideas2it.employee.dao.QualificationDao;
 import com.ideas2it.employee.dao.RoleDao;
 import com.ideas2it.employee.dao.TrainerDao;
+import com.ideas2it.employee.dto.TrainerDto;
 import com.ideas2it.employee.exception.BadRequest;
+import com.ideas2it.employee.mapper.TrainerMapper;
 import com.ideas2it.employee.model.Qualification;
 import com.ideas2it.employee.model.Role;
 import com.ideas2it.employee.model.Trainer;
@@ -28,15 +30,25 @@ import java.util.Optional;
  **/
 @Component
 public class TrainerServiceImpl implements TrainerService {
-    @Autowired
-    public TrainerDao trainerDao;
 
-    @Autowired
-    public RoleDao roleDao;
-
-    @Autowired
-    public QualificationDao qualificationDao;
     private  Logger logger = LogManager.getLogger(TrainerServiceImpl.class);
+    public TrainerDao trainerDao;
+    public RoleDao roleDao;
+    public QualificationDao qualificationDao;
+    private TrainerMapper trainerMapper;
+
+    @Autowired
+    public TrainerServiceImpl(TrainerDao trainerDao, RoleDao roleDao,
+                              QualificationDao qualificationDao,
+                              TrainerMapper trainerMapper) {
+        this.trainerDao = trainerDao;
+        this.roleDao = roleDao;
+        this.qualificationDao = qualificationDao;
+        this.trainerMapper = trainerMapper;
+    }
+
+
+
 
     /**
      * <p>
@@ -57,40 +69,44 @@ public class TrainerServiceImpl implements TrainerService {
      * @return It returns list with invalid parameters
      **/
     @Override
-    public List<Integer> addTrainer(Trainer trainer) {
+    public List<Integer> addTrainer(TrainerDto trainerDto) {
         List<Integer> errorFound = new ArrayList<Integer>();
         String errorFoundMessage = "";
         errorFound.clear();
-       String employeeName = trainer.getEmployeeName();
+       String employeeName = trainerDto.getEmployeeName();
         if (!StringUtility.isValidName(employeeName)) {
             errorFoundMessage += "\nInvalid Name";
             errorFound.add(5);
         }
-        String emailId = trainer.getEmailId();
+        String emailId = trainerDto.getEmailId();
         if (!StringUtility.isValidMail(emailId)) {
             errorFoundMessage += "\nInvalid Email Id";
             errorFound.add(1);
         }
-        String phoneNumber = trainer.getPhoneNumber();
+        String phoneNumber = trainerDto.getPhoneNumber();
         if (!StringUtility.isValidNumber(phoneNumber)) {
             errorFoundMessage += "\nInvalid Mobile Number";
             errorFound.add(3);
         }
-        String adhaarNumber = trainer.getAdhaarNumber();
+        String adhaarNumber = trainerDto.getAdhaarNumber();
         if (!StringUtility.isNumberValid(adhaarNumber)) {
             errorFoundMessage += "\nInvalid Adhaar Number";
             errorFound.add(4);
         }
-        Optional<Qualification> qualification = qualificationDao.findByDescription(trainer.getQualification().getDescription());
-        if (qualification.isPresent()) {
-            trainer.setQualification(qualification.get());
-        }
 
-        Optional<Role> role = roleDao.findByDescription(trainer.getRole().getDescription());
-        if (role.isPresent()) {
-            trainer.setRole(role.get());
-        }
+
+
+
         if (errorFound.size() == 0) {
+            Trainer trainer = trainerMapper.toTrainer(trainerDto);
+            Optional<Qualification> qualification = qualificationDao.findByDescription(trainer.getQualification().getDescription());
+            if (qualification.isPresent()) {
+                trainer.setQualification(qualification.get());
+            }
+            Optional<Role> role = roleDao.findByDescription(trainer.getRole().getDescription());
+            if (role.isPresent()) {
+                trainer.setRole(role.get());
+            }
             trainerDao.save(trainer);
         } else {
             throw new BadRequest(errorFoundMessage, errorFound);
@@ -107,9 +123,13 @@ public class TrainerServiceImpl implements TrainerService {
      * @return it returns list of trainers
      **/
     @Override
-    public List<Trainer> getTrainers() {
+    public List<TrainerDto> getTrainers() {
         logger.info("Trainer Retrieve Method");
-        return trainerDao.findAll();
+        List<TrainerDto> trainers = new ArrayList<>();
+        for (Trainer trainer : trainerDao.findAll()) {
+            trainers.add(trainerMapper.toTrainerDto(trainer));
+        }
+        return trainers;
     }
 
     /**
@@ -134,12 +154,23 @@ public class TrainerServiceImpl implements TrainerService {
      * @return it returns nothing
      **/
     @Override
-    public Trainer retrieveTrainerById(int empId) {
+    public TrainerDto retrieveTrainerById(int empId) {
         logger.info("Trainer Retrieve By Id Method");
-        Optional<Trainer> trainer= trainerDao.findById(empId);
+        TrainerDto trainerDto = null;
+        Optional<Trainer> trainer = trainerDao.findById(empId);
         if (trainer.isPresent()) {
-            return trainer.get();
+            trainerDto = trainerMapper.toTrainerDto(trainer.get());
         }
-        return null;
+        return trainerDto;
+    }
+
+    public TrainerDto getTrainerById(final int trainerId) {
+        logger.info("Entered getTrainerById() method");
+        TrainerDto trainerDto = null;
+        Optional<Trainer> trainer = trainerDao.findById(trainerId);
+        if (trainer.isPresent()) {
+            trainerDto = trainerMapper.toTrainerDto(trainer.get());
+        }
+        return trainerDto;
     }
 }

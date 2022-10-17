@@ -1,28 +1,28 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@page isELIgnored="false"%>
 <%
-    String action = (String) request.getAttribute("action");
-	Trainer trainer = (Trainer) request.getAttribute("trainer");
-	String heading = "ADD TRAINER";
-	if (action.equals("updateTrainer")) {
-	    heading = "Update Trainer";
-	}
+String action = (String) request.getAttribute("action");
+Trainer trainer = (Trainer) request.getAttribute("trainer");
+String heading = "ADD TRAINER";
+if (action.equals("updateTrainer")) {
+heading = "Update Trainer";
+}
 %>
 
 <html>
- <head>
-   <title style="text-align:center"> <%= heading %> </title>
-  </head>
- <body style="background-color:FFF8DC;alinment:center">
-   <%@ page import="com.ideas2it.employee.model.Trainer" %>
-   <h3 style="padding-left:540px;color:violet;"> <%= heading %> </h3>
-   <form:form style="padding:2px;" modelAttribute="trainer" action="addOrUpdateTrainer?action=${action}" method="post">
+<head>
+    <title style="text-align:center"> <%= heading %> </title>
+</head>
+<body style="background-color:FFF8DC;alinment:center">
+<%@ page import="com.ideas2it.employee.model.Trainer" %>
+<h3 style="padding-left:540px;color:violet;"> <%= heading %> </h3>
+<form:form style="padding:2px;" modelAttribute="trainerDto" action="addOrUpdateTrainer?action=${action}" method="post">
     <form:hidden path="id" />
-     <form:select hidden="hidden" path="role.description">
-            <form:option selected="selected" value="Trainer">Trainer</form:option>
-     </form:select>
+    <form:select hidden="hidden" path="roleDto.description">
+        <form:option selected="selected" value="Trainer">Trainer</form:option>
+    </form:select>
     <table >
-         <tr>
+        <tr>
             <td style="padding-left:400px;">
                 Name         :
             </td>
@@ -30,15 +30,15 @@
                 <form:input type="text" path="employeeName" name="employeeName" required="required"/>
             </td>
         </tr>
-         <tr>
+        <tr>
             <td style="padding-left:400px;">
                 Gender :
             </td>
             <td>
                 <form:select path="Gender">
-                   <form:option value="Male" label="male"/>
-                   <form:option value="Female" label="female"/>
-                   <form:option value="Others" label="Others"/>
+                    <form:option value="Male" label="male"/>
+                    <form:option value="Female" label="female"/>
+                    <form:option value="Others" label="Others"/>
                 </form:select>
             </td>
         </tr>
@@ -47,18 +47,18 @@
                 Qualification :
             </td>
             <td>
-                <form:input type="text" path="qualification.description" name="qualification" required="required"/>
+                <form:input type="text" path="qualificationDto.description" name="qualification" required="required"/>
             </td>
         </tr>
         <tr>
-             <td style="padding-left:400px;">
-                 Email Id :
-             </td>
-             <td>
-                 <form:input type="email" path="emailId" name="emailId" required="required" />
-             </td>
-         </tr>
-         <tr>
+            <td style="padding-left:400px;">
+                Email Id :
+            </td>
+            <td>
+                <form:input type="email" path="emailId" name="emailId" required="required" />
+            </td>
+        </tr>
+        <tr>
             <td style="padding-left:400px;">
                 Date of Birth :
             </td>
@@ -98,7 +98,7 @@
                 <form:input type="number" path="adhaarNumber" name="adhaarNumber" required="required"/>
             </td>
         </tr>
-       <tr>
+        <tr>
             <td style="padding-left:400px;">
                 Department :
             </td>
@@ -123,7 +123,7 @@
             </td>
         </tr>
     </table>
-  </form:form>
-  </div>
- </body>
+</form:form>
+</div>
+</body>
 </html>

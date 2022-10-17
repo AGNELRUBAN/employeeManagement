@@ -22,8 +22,6 @@ public class Trainee extends Employee {
             joinColumns = @JoinColumn(name = "trainee_id", referencedColumnName = "emp_id"),
             inverseJoinColumns = @JoinColumn(name = "trainer_id", referencedColumnName = "emp_id"))
     private Set<Trainer> trainers;
-    @Transient
-    private List<Integer> trainersId;
 
     public Trainee() {
     }
@@ -40,14 +38,6 @@ public class Trainee extends Employee {
 
     public int getSalary() {
         return salary;
-    }
-
-    public void setTrainersId(List<Integer> trainersId) {
-        this.trainersId = trainersId;
-    }
-
-    public List<Integer> getTrainersId() {
-        return trainersId;
     }
 
     public void setTrainers(Set<Trainer> trainers) {
@@ -68,7 +58,6 @@ public class Trainee extends Employee {
     @Override
     public String toString() {
         return "Trainee{" + "salary=" + salary +
-                ", trainersId=" + trainersId +
                 ", trainers=" + trainers + '}';
     }
 }
