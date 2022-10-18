@@ -35,7 +35,6 @@ public class TraineeMapper {
         trainee.setAdhaarNumber(traineeDto.getAdhaarNumber());
         trainee.setDepartment(traineeDto.getDepartment());
         trainee.setSalary(traineeDto.getSalary());
-        trainee.setTrainersId(traineeDto.getTrainersId());
         trainee.setQualification(qualificationMapper.toQualification(traineeDto.getQualificationDto()));
         trainee.setRole(roleMapper.toRole(traineeDto.getRoleDto()));
         return trainee;
@@ -53,13 +52,17 @@ public class TraineeMapper {
         traineeDto.setPhoneNumber(trainee.getPhoneNumber());
         traineeDto.setAdhaarNumber(trainee.getAdhaarNumber());
         traineeDto.setDepartment(trainee.getDepartment());
+        traineeDto.setSalary(trainee.getSalary());
         traineeDto.setQualificationDto(qualificationMapper.toQualificationDto(trainee.getQualification()));
         traineeDto.setRoleDto(roleMapper.toRoleDto(trainee.getRole()));
+        List<String> trainerNames = new ArrayList<>();
         List<Integer> trainersId = new ArrayList<>();
         for (Trainer trainer : trainee.getTrainers()) {
             trainersId.add(trainer.getId());
+            trainerNames.add(trainer.getEmployeeName());
         }
         traineeDto.setTrainersId(trainersId);
+        traineeDto.setTrainersName(trainerNames);
         return traineeDto;
     }
 }

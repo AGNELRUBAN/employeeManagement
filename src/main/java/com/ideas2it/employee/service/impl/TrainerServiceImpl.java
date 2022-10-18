@@ -154,16 +154,14 @@ public class TrainerServiceImpl implements TrainerService {
      * @return it returns nothing
      **/
     @Override
-    public TrainerDto retrieveTrainerById(int empId) {
+    public List<Trainer> retrieveTrainersById(List<Integer> trainerIds) {
         logger.info("Trainer Retrieve By Id Method");
-        TrainerDto trainerDto = null;
-        Optional<Trainer> trainer = trainerDao.findById(empId);
-        if (trainer.isPresent()) {
-            trainerDto = trainerMapper.toTrainerDto(trainer.get());
-        }
-        return trainerDto;
+        List<Trainer> trainers = trainerDao.findAllById(trainerIds);
+
+        return trainers;
     }
 
+    @Override
     public TrainerDto getTrainerById(final int trainerId) {
         logger.info("Entered getTrainerById() method");
         TrainerDto trainerDto = null;

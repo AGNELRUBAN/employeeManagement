@@ -29,6 +29,7 @@ public class TrainerMapper {
         trainer.setPhoneNumber(trainerDto.getPhoneNumber());
         trainer.setAdhaarNumber(trainerDto.getAdhaarNumber());
         trainer.setDepartment(trainerDto.getDepartment());
+        trainer.setTrainerExperience(trainerDto.getTrainerExperience());
         trainer.setQualification(qualificationMapper.toQualification(trainerDto.getQualificationDto()));
         trainer.setRole(roleMapper.toRole(trainerDto.getRoleDto()));
         return trainer;
@@ -46,6 +47,7 @@ public class TrainerMapper {
         trainerDto.setPhoneNumber(trainer.getPhoneNumber());
         trainerDto.setAdhaarNumber(trainer.getAdhaarNumber());
         trainerDto.setDepartment(trainer.getDepartment());
+        trainerDto.setTrainerExperience(trainer.getTrainerExperience());
         trainerDto.setQualificationDto(qualificationMapper.toQualificationDto(trainer.getQualification()));
         trainerDto.setRoleDto(roleMapper.toRoleDto(trainer.getRole()));
         return trainerDto;

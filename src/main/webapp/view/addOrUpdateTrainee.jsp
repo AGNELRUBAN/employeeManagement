@@ -7,7 +7,7 @@
 </head>
 <body style="background-color:FFF8DC">
 <%@ page import="com.ideas2it.employee.model.Trainee"
-import="com.ideas2it.employee.model.Trainer"
+         import="com.ideas2it.employee.model.Trainer"
 %>
 <%
 String action = (String) request.getAttribute("action");
@@ -17,9 +17,9 @@ heading = "Update Trainee";
 }
 %>
 <h3 style="padding-left:540px;color:violet;"> <%= heading %> </h3>
-<form:form modelAttribute="trainee" action="addOrUpdateTrainee?action=${action}" method="post">
+<form:form modelAttribute="traineeDto" action="addOrUpdateTrainee?action=${action}" method="post">
     <form:hidden path="id"/>
-    <form:select hidden="hidden" path="role.description">
+    <form:select hidden="hidden" path="roleDto.description">
         <form:option selected="selected" value="Trainee">Trainee</form:option>
     </form:select>
     <table>
@@ -48,7 +48,7 @@ heading = "Update Trainee";
                 Qualification :
             </td>
             <td>
-                <form:input type="text" path="qualification.description" name="qualification" required="required"/>
+                <form:input type="text" path="qualificationDto.description" name="qualification" required="required"/>
             </td>
         </tr>
         <tr>
@@ -117,11 +117,11 @@ heading = "Update Trainee";
         </tr>
         <tr>
             <td style="padding-left:400px;">
-                Trainer Ids :
+                Trainer Names :
             </td>
             <td>
                 <form:select path="trainersId">
-                    <c:forEach var="trainer" items="${trainers}" >
+                    <c:forEach var="trainer" items="${trainersDto}" >
                         <form:option value="${trainer.id}" label="${trainer.id} - ${trainer.employeeName}" />
                     </c:forEach>
                 </form:select>

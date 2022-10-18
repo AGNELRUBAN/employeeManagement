@@ -22,7 +22,7 @@ public interface TrainerService {
 
     boolean deleteByTrainerId(int empId);
 
-    TrainerDto retrieveTrainerById(int empId);
+    List<Trainer> retrieveTrainersById(List<Integer> trainerIds);
 
     TrainerDto getTrainerById(final int trainerId);
 }

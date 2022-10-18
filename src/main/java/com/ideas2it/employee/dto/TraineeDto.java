@@ -20,22 +20,23 @@ public class TraineeDto extends EmployeeDto {
 
     private List<Integer> trainersId;
 
-    private String trainersName;
+    private List<String> trainersName;
 
     public TraineeDto() {
     }
 
-    public TraineeDto(EmployeeDto employee, int salary, Set<TrainerDto> trainers) {
+    public TraineeDto(EmployeeDto employee, int salary, Set<TrainerDto> trainers, List<String> trainersName) {
         // this.employee = employee;
         this.salary = salary;
         this.trainers = trainers;
+        this.trainersName = trainersName;
     }
 
-    public String getTrainersName() {
+    public List<String> getTrainersName() {
         return trainersName;
     }
 
-    public void setTrainersName(String trainersName) {
+    public void setTrainersName(List<String> trainersName) {
         this.trainersName = trainersName;
     }
 

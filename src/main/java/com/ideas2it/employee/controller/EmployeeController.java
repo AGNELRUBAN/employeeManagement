@@ -121,7 +121,7 @@ public class EmployeeController {
 
     @GetMapping("/updateTrainer")
     public String getTrainerById(@RequestParam("id") int trainerId, Model model) {
-        TrainerDto trainerDto = trainerService.retrieveTrainerById(trainerId);
+        TrainerDto trainerDto = trainerService.getTrainerById(trainerId);
         model.addAttribute("trainerDto", trainerDto);
         model.addAttribute("action", "updateTrainer");
         return "addOrUpdateTrainer";
@@ -135,5 +135,11 @@ public class EmployeeController {
         model.addAttribute("traineeDto", traineeDto);
         model.addAttribute("action", "updateTrainee");
         return "addOrUpdateTrainee";
+    }
+    @GetMapping("/viewField")
+    public String viewTrainer(@RequestParam("id") int trainerId, Model model) {
+        TrainerDto trainerDto = trainerService.getTrainerById(trainerId);
+        model.addAttribute("trainerDto", trainerDto);
+        return "view";
     }
 }

@@ -100,7 +100,7 @@ public class TraineeServiceImpl implements TraineeService {
 
 
         if (errorFound.size() == 0) {
-            Set<Trainer> trainers = Set.copyOf(trainerService.retrieveTrainerById(traineeDto.getTrainersId()));
+            Set<Trainer> trainers = Set.copyOf(trainerService.retrieveTrainersById(traineeDto.getTrainersId()));
             Trainee trainee = traineeMapper.toTrainee(traineeDto);
             trainee.setTrainers(trainers);
             Optional<Qualification> qualification = qualificationDao.findByDescription(trainee.getQualification().getDescription());
