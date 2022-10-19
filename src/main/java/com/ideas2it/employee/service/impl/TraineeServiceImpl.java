@@ -5,6 +5,7 @@ import com.ideas2it.employee.dao.RoleDao;
 import com.ideas2it.employee.dao.TraineeDao;
 import com.ideas2it.employee.dto.TraineeDto;
 import com.ideas2it.employee.exception.BadRequest;
+import com.ideas2it.employee.helper.Helper;
 import com.ideas2it.employee.mapper.TraineeMapper;
 import com.ideas2it.employee.model.Qualification;
 import com.ideas2it.employee.model.Role;
@@ -37,18 +38,20 @@ public class TraineeServiceImpl implements TraineeService {
     private TraineeDao traineeDao;
     private QualificationDao qualificationDao;
     private RoleDao roleDao;
+    private Helper helper;
 
     private TraineeMapper traineeMapper;
 
     @Autowired
     public TraineeServiceImpl(TrainerService trainerService, TraineeDao traineeDao,
                               QualificationDao qualificationDao, RoleDao roleDao,
-                              TraineeMapper traineeMapper) {
+                              TraineeMapper traineeMapper, Helper helper) {
         this.trainerService = trainerService;
         this.traineeDao = traineeDao;
         this.qualificationDao = qualificationDao;
         this.roleDao = roleDao;
         this.traineeMapper = traineeMapper;
+        this.helper = helper;
     }
 
 
@@ -97,10 +100,8 @@ public class TraineeServiceImpl implements TraineeService {
             errorFoundMessage += "\nInvalid Adhaar Number\n";
             errorFound.add(4);
         }
-
-
         if (errorFound.size() == 0) {
-            Set<Trainer> trainers = Set.copyOf(trainerService.retrieveTrainersById(traineeDto.getTrainersId()));
+            Set<Trainer> trainers = Set.copyOf(helper.getTrainersFromDao(traineeDto.getTrainersId()));
             Trainee trainee = traineeMapper.toTrainee(traineeDto);
             trainee.setTrainers(trainers);
             Optional<Qualification> qualification = qualificationDao.findByDescription(trainee.getQualification().getDescription());

@@ -157,7 +157,6 @@ public class TrainerServiceImpl implements TrainerService {
     public List<Trainer> retrieveTrainersById(List<Integer> trainerIds) {
         logger.info("Trainer Retrieve By Id Method");
         List<Trainer> trainers = trainerDao.findAllById(trainerIds);
-
         return trainers;
     }
 

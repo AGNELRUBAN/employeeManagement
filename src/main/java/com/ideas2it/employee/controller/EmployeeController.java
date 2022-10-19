@@ -29,11 +29,14 @@ import java.util.List;
 public class EmployeeController {
 
     private Logger logger = LogManager.getLogger(EmployeeController.class);
-    @Autowired
     private  TrainerService trainerService;
-    @Autowired
     private TraineeService traineeService;
 
+    @Autowired
+    public EmployeeController(TrainerService trainerService, TraineeService traineeService) {
+        this.trainerService = trainerService;
+        this.traineeService = traineeService;
+    }
 
     @GetMapping("/")
     public String index() {
@@ -140,6 +143,6 @@ public class EmployeeController {
     public String viewTrainer(@RequestParam("id") int trainerId, Model model) {
         TrainerDto trainerDto = trainerService.getTrainerById(trainerId);
         model.addAttribute("trainerDto", trainerDto);
-        return "view";
+        return "profile";
     }
 }
