@@ -142,7 +142,18 @@ public class EmployeeController {
     @GetMapping("/viewField")
     public String viewTrainer(@RequestParam("id") int trainerId, Model model) {
         TrainerDto trainerDto = trainerService.getTrainerById(trainerId);
+        List<TraineeDto> traineeDto = traineeService.getTrainees();
+        model.addAttribute("traineeDto",traineeDto);
         model.addAttribute("trainerDto", trainerDto);
         return "profile";
+    }
+
+    @GetMapping("/TraineeView")
+    public String traineeView(@RequestParam("id") int trainerId, Model model ) {
+        List<TraineeDto> traineeDto = traineeService.getTrainees();
+        TrainerDto trainerDto = trainerService.getTrainerById(trainerId);
+        model.addAttribute("traineeDto", traineeDto);
+        model.addAttribute("trainerDto", trainerDto);
+        return "traineeDetail";
     }
 }

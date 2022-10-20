@@ -14,6 +14,9 @@
     <div class="name">
          <h2> ${trainerDto.employeeName}</h2>
     </div>
+    <div>
+    <a class="delete" href="TraineeView?id=${trainerDto.id}"> <input class ="delete btn" type="button" value="viewTrainees"></a>
+    </div>
     <div class="list">
          <p id="first">${trainerDto.qualificationDto.description}</p>
          <p id="first">${trainerDto.dateOfBirth}</p>
