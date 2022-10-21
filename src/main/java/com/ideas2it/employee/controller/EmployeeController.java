@@ -2,6 +2,7 @@ package com.ideas2it.employee.controller;
 
 import com.ideas2it.employee.dto.TraineeDto;
 import com.ideas2it.employee.dto.TrainerDto;
+import com.ideas2it.employee.model.Trainee;
 import com.ideas2it.employee.service.TraineeService;
 import com.ideas2it.employee.service.TrainerService;
 import org.apache.logging.log4j.LogManager;
@@ -150,7 +151,7 @@ public class EmployeeController {
 
     @GetMapping("/TraineeView")
     public String traineeView(@RequestParam("id") int trainerId, Model model ) {
-        List<TraineeDto> traineeDto = traineeService.getTrainees();
+        List<TraineeDto> traineeDto = traineeService.getTraineesByTrainerId(trainerId);
         TrainerDto trainerDto = trainerService.getTrainerById(trainerId);
         model.addAttribute("traineeDto", traineeDto);
         model.addAttribute("trainerDto", trainerDto);

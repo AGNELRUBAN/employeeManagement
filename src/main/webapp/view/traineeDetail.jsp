@@ -18,7 +18,8 @@
               <img class="image" src="User-Profile-PNG-Image.png" >
             </td>
             <td>
-                <p style="font-weight: 800;color:white;font-style: revert;height: 44px;">${trainerDto.employeeName}</p>
+                <p style="font-weight: 800;color:white;font-style: revert;height: 8px;">${trainerDto.employeeName}</p>
+                <p style="font-weight: 800;color:white;"> Trainer </p>
             </td>
             <td style="width:38%;color:white;font-style:revert;font-weight: 800;">
                 <p> Number Of Trainees</p>
@@ -29,7 +30,7 @@
     <table class="table1">
         <tr class="first">
             <td>
-                <p>  Name</p>
+                <p>Name</p>
             </td>
             <td>
                 <p> Email Id</p>
@@ -41,7 +42,6 @@
                 <p>Mobile Number</p>
             </td>
         </tr>
-
          <c:forEach var="par" items="${traineeDto}">
          <tr class="second">
             <td>
@@ -60,8 +60,7 @@
          </c:forEach>
         </tr>
     </table>
-     <a href="profile" style="color:blue" > Back </a>
+     <a href="/viewField?id=${id}" style="color:blue" > Back </a>
 </div>
-
 </body>
 </html>

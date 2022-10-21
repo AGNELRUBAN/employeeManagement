@@ -6,23 +6,14 @@ import com.ideas2it.employee.model.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class TraineeMapper {
 
-    QualificationMapper qualificationMapper;
-
-    RoleMapper roleMapper;
-
-    @Autowired
-    public TraineeMapper (QualificationMapper qualificationMapper, RoleMapper roleMapper) {
-        this.qualificationMapper = qualificationMapper;
-        this.roleMapper = roleMapper;
-    }
-
-    public Trainee toTrainee (TraineeDto traineeDto) {
+    public static Trainee toTrainee (TraineeDto traineeDto) {
         Trainee trainee = new Trainee();
         trainee.setId(traineeDto.getId());
         trainee.setEmployeeName(traineeDto.getEmployeeName());
@@ -35,12 +26,22 @@ public class TraineeMapper {
         trainee.setAdhaarNumber(traineeDto.getAdhaarNumber());
         trainee.setDepartment(traineeDto.getDepartment());
         trainee.setSalary(traineeDto.getSalary());
-        trainee.setQualification(qualificationMapper.toQualification(traineeDto.getQualificationDto()));
-        trainee.setRole(roleMapper.toRole(traineeDto.getRoleDto()));
+        trainee.setQualification(QualificationMapper.toQualification(traineeDto.getQualificationDto()));
+        trainee.setRole(RoleMapper.toRole(traineeDto.getRoleDto()));
         return trainee;
     }
 
-    public TraineeDto toTraineeDto (Trainee trainee) {
+    public static TraineeDto convertObjectToTraineeDto(Object[] object) {
+        TraineeDto traineeDto = new TraineeDto();
+        traineeDto.setSalary((Integer) object[0]);
+        traineeDto.setId((Integer) object[1]);
+        traineeDto.setEmailId((String) object[2]);
+        traineeDto.setPhoneNumber((String) object[3]);
+        traineeDto.setEmployeeName((String) object[4]);
+        return traineeDto;
+    }
+
+    public static TraineeDto toTraineeDto(Trainee trainee) {
         TraineeDto traineeDto = new TraineeDto();
         traineeDto.setId(trainee.getId());
         traineeDto.setEmployeeName(trainee.getEmployeeName());
@@ -53,8 +54,8 @@ public class TraineeMapper {
         traineeDto.setAdhaarNumber(trainee.getAdhaarNumber());
         traineeDto.setDepartment(trainee.getDepartment());
         traineeDto.setSalary(trainee.getSalary());
-        traineeDto.setQualificationDto(qualificationMapper.toQualificationDto(trainee.getQualification()));
-        traineeDto.setRoleDto(roleMapper.toRoleDto(trainee.getRole()));
+        traineeDto.setQualificationDto(QualificationMapper.toQualificationDto(trainee.getQualification()));
+        traineeDto.setRoleDto(RoleMapper.toRoleDto(trainee.getRole()));
         List<String> trainerNames = new ArrayList<>();
         List<Integer> trainersId = new ArrayList<>();
         for (Trainer trainer : trainee.getTrainers()) {

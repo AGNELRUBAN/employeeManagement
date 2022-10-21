@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class QualificationMapper {
 
-    public Qualification toQualification(QualificationDto qualificationDto) {
+    public static Qualification toQualification(QualificationDto qualificationDto) {
         Qualification qualification = new Qualification();
         qualification.setDescription(qualificationDto.getDescription());
         return qualification;
     }
 
-    public QualificationDto toQualificationDto(Qualification qualification) {
+    public static QualificationDto toQualificationDto(Qualification qualification) {
         QualificationDto qualificationDto = new QualificationDto();
         qualificationDto.setDescription(qualification.getDescription());
         return qualificationDto;

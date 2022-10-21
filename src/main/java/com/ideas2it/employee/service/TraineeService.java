@@ -22,4 +22,6 @@ public interface TraineeService {
     boolean deleteByTraineeId(int empId);
 
     TraineeDto retrieveTraineeById(int empId);
+
+    List<TraineeDto> getTraineesByTrainerId(int id);
 }

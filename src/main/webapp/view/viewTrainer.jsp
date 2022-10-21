@@ -11,7 +11,7 @@
     <tr>
      <th style="font-style:italic;color:blue;background-color: #d2dfd2;"> Id </th>
      <th style="font-style:italic;color:blue;width: 686px;background-color: #d2dfd2;"> Name </th>
-
+     <th style="background-color: #d2dfd2;color:blue;"> Option </th>
     </tr> 
  <% List<TrainerDto> trainers = (List)request.getAttribute("trainersDto");
     for (TrainerDto trainer : trainers) { %>
@@ -23,7 +23,9 @@
 
       <% } %>
 </table>
+ <div style="color:red;padding-left: 253px;padding-top: 4px;">
  <a href="trainerForm"> <input class ="add btn" type="button" value="Add Trainer"></a>
-<a href="/" style="color:blue" > Back to Home </a>
+ <a href="/" style="color:blue" > Back to Home </a>
+  </div>
  </body>
 </html>

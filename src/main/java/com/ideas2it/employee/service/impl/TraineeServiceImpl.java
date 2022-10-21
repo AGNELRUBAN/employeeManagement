@@ -165,12 +165,15 @@ public class TraineeServiceImpl implements TraineeService {
         if (trainees.isPresent()) {
             traineeDto = traineeMapper.toTraineeDto(trainees.get());
         }
-        /*List<Integer> trainersId = new ArrayList<>();
-        for (Trainer trainer : trainee.getTrainers()) {
-            trainersId.add(trainer.getId());
-        }
-        trainee.setTrainersId(trainersId);*/
         return traineeDto;
+    }
 
+    public List<TraineeDto> getTraineesByTrainerId(int trainerId) {
+        List<Object[]> trainees = traineeDao.retrieveTraineesByTrainerId(trainerId);
+        List<TraineeDto> traineeDto = new ArrayList<>();
+        for (Object[] objects: trainees) {
+            traineeDto.add(TraineeMapper.convertObjectToTraineeDto(objects));
+        }
+        return traineeDto;
     }
 }

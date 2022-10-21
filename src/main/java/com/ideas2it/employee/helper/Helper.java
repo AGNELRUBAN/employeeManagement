@@ -12,9 +12,7 @@ import java.util.List;
 
 @Component
 public class Helper {
-
        private TrainerDao trainerDao;
-
 
        @Autowired
        public Helper(TrainerDao trainerDao) {
