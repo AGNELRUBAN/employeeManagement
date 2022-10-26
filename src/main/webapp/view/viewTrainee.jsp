@@ -8,6 +8,9 @@
  <title>View Trainee</title>
 </head>
 <body style="background-color:FFF8DC">
+<h2 style="color:Red;padding-left:486px;margin:0"> Trainee Details </h2>
+<div style="width:1252px;height:463px;overflow:hidden;overflow-y:scroll;">
+  <div>
  <table border = 1 cellpadding = 5 cellspacing = 0 style="border:5px solid blue">
     <tr>
 	<th style="font-style:italic;color:blue">Id</th>
@@ -49,8 +52,11 @@
     <%
        }
     %>
+
   </table>
-  <a href="\traineeForm"> <input class ="add btn" type="button" value="Add Trainee"></a>
+   </div>
+      </div>
+  <a href="\traineeForm"> <input style="margin-top:17px;"class ="add btn" type="button" value="Add Trainee"></a>
   <a href="/" style="color:blue" > Back to Home </a>
 </body>
 </html>

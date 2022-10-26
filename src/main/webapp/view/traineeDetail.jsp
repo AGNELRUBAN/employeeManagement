@@ -19,11 +19,11 @@
             </td>
             <td>
                 <p style="font-weight: 800;color:white;font-style: revert;height: 8px;">${trainerDto.employeeName}</p>
-                <p style="font-weight: 800;color:white;"> Trainer </p>
+                <p style="font-weight: 800;color:white;"> (Trainer) </p>
             </td>
             <td style="width:38%;color:white;font-style:revert;font-weight: 800;">
                 <p> Number Of Trainees</p>
-                <p> <c:out value="${par.trainees.size()}"/> </p>
+                <p style="padding-left:67px;"> <c:out value="${traineeDto.size()}"/> </p>
             </td>
         </tr>
     </table>
@@ -60,7 +60,7 @@
          </c:forEach>
         </tr>
     </table>
-     <a href="/viewField?id=${id}" style="color:blue" > Back </a>
+     <a href="/viewField?id=${trainerDto.id}" style="color: #d0cdc0;" > Back </a>
 </div>
 </body>
 </html>

@@ -3,10 +3,8 @@ package com.ideas2it.employee.mapper;
 import com.ideas2it.employee.dto.TraineeDto;
 import com.ideas2it.employee.model.Trainee;
 import com.ideas2it.employee.model.Trainer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

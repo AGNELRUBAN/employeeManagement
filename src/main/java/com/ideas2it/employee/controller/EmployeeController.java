@@ -2,7 +2,6 @@ package com.ideas2it.employee.controller;
 
 import com.ideas2it.employee.dto.TraineeDto;
 import com.ideas2it.employee.dto.TrainerDto;
-import com.ideas2it.employee.model.Trainee;
 import com.ideas2it.employee.service.TraineeService;
 import com.ideas2it.employee.service.TrainerService;
 import org.apache.logging.log4j.LogManager;
@@ -53,7 +52,7 @@ public class EmployeeController {
         return modelAndView;
     }
 
-    @GetMapping("/traineeForm")
+   @GetMapping("/traineeForm")
     public ModelAndView showTraineeForm() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("trainersDto", trainerService.getTrainers());

@@ -7,12 +7,13 @@
     <meta charset="UTF-8">
     <title>Front End</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 <div class="wrapper">
     <img src="User-Profile-PNG-Image.png">
     <div class="name">
-         <h2> ${trainerDto.employeeName}</h2>
+         <h2 style="margin-left:-5px;"> ${trainerDto.employeeName}</h2>
     </div>
     <div>
     <a class="delete" href="TraineeView?id=${trainerDto.id}"> <input class ="delete btn" type="button" value="viewTrainees"></a>
