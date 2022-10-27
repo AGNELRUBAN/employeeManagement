@@ -8,6 +8,7 @@
     <title>Front End</title>
     <link rel="stylesheet" href="style.css">
 
+
 </head>
 <body>
 <div class="wrapper">
@@ -16,7 +17,7 @@
          <h2 style="margin-left:-5px;"> ${trainerDto.employeeName}</h2>
     </div>
     <div>
-    <a class="delete" href="TraineeView?id=${trainerDto.id}"> <input class ="delete btn" type="button" value="viewTrainees"></a>
+    <a class="delete" href="TraineeView?id=${trainerDto.id}"> <input class ="delete btn" type="button" value="Trainees"></a>
     </div>
     <div class="list">
          <p id="first">${trainerDto.qualificationDto.description}</p>
@@ -31,6 +32,7 @@
         <img class="imagee2" src="email.png">
         <img class="imagee3" src="open-book.png">
         <img class="imagee4" src="calendar.png">
+
         <div class="delete">
            <a class="delete" href=deleteTrainer?id=${trainerDto.id}> <input class ="delete btn" type="button" value="Delete"></a>
            </div>

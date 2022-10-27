@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <title>Trainees of Trainers</title>
     <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -15,7 +16,7 @@
     <table class="table" >
         <tr >
             <td style="width:8%;padding-left:29px;">
-              <img class="image" src="User-Profile-PNG-Image.png" >
+              <i class="glyphicon glyphicon-user"  style="font-size:49px;color:#0a0a47;margin-left4px;"></i>
             </td>
             <td>
                 <p style="font-weight: 800;color:white;font-style: revert;height: 8px;">${trainerDto.employeeName}</p>
@@ -45,7 +46,7 @@
          <c:forEach var="par" items="${traineeDto}">
          <tr class="second">
             <td>
-                <img class = "pic" src="User-Profile-PNG-Image.png">
+                 <i class="glyphicon glyphicon-user"  style="font-size: 18px;margin-left: -38px;"></i>
                 <h5 class="name"> <c:out value="${par.employeeName}"/> <br> </h5>
             </td>
             <td>
@@ -60,7 +61,8 @@
          </c:forEach>
         </tr>
     </table>
-     <a href="/viewField?id=${trainerDto.id}" style="color: #d0cdc0;" > Back </a>
+     <a href="/viewField?id=${trainerDto.id}" style="color: #00e8ff;position:absolute;margin-top:10px" > Back </a>
+
 </div>
 </body>
 </html>

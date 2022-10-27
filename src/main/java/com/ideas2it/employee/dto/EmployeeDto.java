@@ -1,7 +1,5 @@
 package com.ideas2it.employee.dto;
 
-import com.ideas2it.employee.model.Qualification;
-import com.ideas2it.employee.model.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
