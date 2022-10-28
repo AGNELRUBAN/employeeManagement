@@ -9,7 +9,7 @@ import java.util.Set;
  * It is pojo class and it extends another class
  * </p>
  * version 1.0
- * @author ruban 11/08/22
+ * @author ruban 12/08/22
  *
  **/
 public class TrainerDto extends EmployeeDto {
@@ -43,8 +43,6 @@ public class TrainerDto extends EmployeeDto {
     public Set<TraineeDto> getTrainees() {
         return trainees;
     }
-
-
 
     /**
      * <p>

@@ -7,6 +7,9 @@ import com.ideas2it.employee.service.TrainerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -81,11 +84,11 @@ public class EmployeeController {
     public String addOrUpdateTrainer(@ModelAttribute TrainerDto trainerDto, @RequestParam("action") String action, RedirectAttributes redirectAttributes) {
         try {
             trainerService.addTrainer(trainerDto);
-            if ("addTrainer".equals("action")) {
-                redirectAttributes.addFlashAttribute("msg", trainerDto.getEmployeeName() + " Inserted Successfully");
-            } else {
-                redirectAttributes.addFlashAttribute("msg", trainerDto.getEmployeeName() + " Updated Successfully");
-            }
+         //   if ("addTrainer".equals("action")) {
+           //     redirectAttributes.addFlashAttribute("msg", trainerDto.getEmployeeName() + " Inserted Successfully");
+            //} else {
+              //  redirectAttributes.addFlashAttribute("msg", trainerDto.getEmployeeName() + " Updated Successfully");
+            //}
         } catch (Exception exception) {
             redirectAttributes.addFlashAttribute("msg", exception.getMessage());
         }
@@ -93,18 +96,20 @@ public class EmployeeController {
     }
 
     @RequestMapping (value = "/viewTrainer")
-    public ModelAndView viewTrainer() {
+    public ModelAndView viewTrainer(Authentication authentication) {
         List<TrainerDto> trainersDto = trainerService.getTrainers();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("trainersDto", trainersDto);
+        modelAndView.addObject("authority",authentication.getAuthorities().iterator().next().toString());
         return modelAndView;
     }
 
     @RequestMapping(value ="/viewTrainee")
-    public ModelAndView viewTrainee() {
+    public ModelAndView viewTrainee(Authentication authentication) {
         List<TraineeDto> traineeDto = traineeService.getTrainees();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("traineeDto", traineeDto);
+        modelAndView.addObject("authority",authentication.getAuthorities().iterator().next().getAuthority());
         return modelAndView;
     }
 
@@ -140,11 +145,12 @@ public class EmployeeController {
         return "addOrUpdateTrainee";
     }
     @GetMapping("/viewField")
-    public String viewTrainer(@RequestParam("id") int trainerId, Model model) {
+    public String viewTrainer(@RequestParam("id") int trainerId, Model model, Authentication authentication) {
         TrainerDto trainerDto = trainerService.getTrainerById(trainerId);
         List<TraineeDto> traineeDto = traineeService.getTrainees();
         model.addAttribute("traineeDto",traineeDto);
         model.addAttribute("trainerDto", trainerDto);
+        model.addAttribute("authority",authentication.getAuthorities().iterator().next().getAuthority());
         return "profile";
     }
 

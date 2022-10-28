@@ -54,7 +54,6 @@ public class TraineeServiceImpl implements TraineeService {
         this.helper = helper;
     }
 
-
     /**
      * <p>
      * It gets Trainee Input from controller through parameter and sends it to utility for validation, if validation done
@@ -169,10 +168,10 @@ public class TraineeServiceImpl implements TraineeService {
     }
 
     public List<TraineeDto> getTraineesByTrainerId(int trainerId) {
-        List<Object[]> trainees = traineeDao.retrieveTraineesByTrainerId(trainerId);
+        List<Trainee> trainees = traineeDao.retrieveTraineesByTrainerId(trainerId);
         List<TraineeDto> traineeDto = new ArrayList<>();
-        for (Object[] objects: trainees) {
-            traineeDto.add(TraineeMapper.convertObjectToTraineeDto(objects));
+        for (Trainee trainee: trainees) {
+            traineeDto.add(TraineeMapper.toTraineeDto(trainee));
         }
         return traineeDto;
     }

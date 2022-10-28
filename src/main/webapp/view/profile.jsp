@@ -1,5 +1,7 @@
 <%@page import="com.ideas2it.employee.dto.TrainerDto"%>
 <%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" isELIgnored="false" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,13 +34,14 @@
         <img class="imagee2" src="email.png">
         <img class="imagee3" src="open-book.png">
         <img class="imagee4" src="calendar.png">
-
+        <c:if test="${authority == 'ROLE_ADMIN'}">
         <div class="delete">
            <a class="delete" href=deleteTrainer?id=${trainerDto.id}> <input class ="delete btn" type="button" value="Delete"></a>
            </div>
         <div class="update">
            <a href=updateTrainer?id=${trainerDto.id}> <input class ="update btn" type="button" value="Update"></a>
            </div>
+           </c:if>
            <div class="home">
           <a href="/" style="color:blue" > Back to Home </a>
            </div>

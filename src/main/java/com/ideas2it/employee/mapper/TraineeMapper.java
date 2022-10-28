@@ -29,7 +29,7 @@ public class TraineeMapper {
         return trainee;
     }
 
-    public static TraineeDto convertObjectToTraineeDto(Object[] object) {
+  /*  public static TraineeDto convertObjectToTraineeDto(Object[] object) {
         TraineeDto traineeDto = new TraineeDto();
         traineeDto.setSalary((Integer) object[0]);
         traineeDto.setId((Integer) object[1]);
@@ -37,7 +37,7 @@ public class TraineeMapper {
         traineeDto.setPhoneNumber((String) object[3]);
         traineeDto.setEmployeeName((String) object[4]);
         return traineeDto;
-    }
+    }*/
 
     public static TraineeDto toTraineeDto(Trainee trainee) {
         TraineeDto traineeDto = new TraineeDto();

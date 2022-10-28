@@ -1,4 +1,4 @@
-package com.ideas2it.employee.service;
+package com.ideas2it.employee.service.impl;
 
 import com.ideas2it.employee.dao.UserRepository;
 import com.ideas2it.employee.model.User;
